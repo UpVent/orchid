@@ -38,9 +38,17 @@ endc='\E[0m'
 enda='\033[0m'
 
 function arch_check {
-    if [[ $(uname -m) = x86_64 ]]; then
+    if [[ $(uname -m ) = x86_64 ]]; then
         echo -e "\e[32m[-] multilib is already Enabled !\e[0m"
     else
         echo -e "\e[32m[-] multilib has no guarantee to work here!\e[0m"
+    fi
+}
+
+function verify_sudo {
+    if [[ `dpkg -s sudo | grep Status` = "Status: install ok installed" ]]; then
+        echo "sudo is installed"
+    else
+        su -c apt install sudo
     fi
 }
