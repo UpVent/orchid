@@ -37,3 +37,10 @@ w='\E[37m'
 endc='\E[0m'
 enda='\033[0m'
 
+function arch_check {
+    if [[ $(uname -m) = x86_64 ]]; then
+        echo -e "\e[32m[-] multilib is already Enabled !\e[0m"
+    else
+        echo -e "\e[32m[-] multilib has no guarantee to work here!\e[0m"
+    fi
+}
