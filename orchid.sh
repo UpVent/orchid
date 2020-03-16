@@ -129,7 +129,6 @@ function about {
     read -r input
 }
 
-
 # Init script
 # Just fucking call all the functions at once
 show_banner # && arch_check && verify_sudo && check_git && check_wget && sleep 1
@@ -150,7 +149,7 @@ do
     [4] - DevOps Breed
 
 
-        [a] - about this script    [f] - Future plans for this script   [q] - quit
+        [a] - about this script   [q] - quit
     "
 
     echo
@@ -161,6 +160,10 @@ do
     case $breed in
 
         # Down menu Options
+        1) breeds/web-servers/mainwebservers.sh;;
+        2) breeds/databases/maindb.sh;;
+        3) breeds/dev-lang/mainlang.sh;;
+        4) breeds/dev-ops/maindevops.sh;;
         a) about ;;
     esac
 
