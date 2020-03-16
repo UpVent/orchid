@@ -124,5 +124,7 @@ do
     [3] - Dev Lang Breed
     [4] - DevOps Breed
 
+
+        [a] - about this script    [f] - Future plans for this script   [q] - quit
     "
     done
