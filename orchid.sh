@@ -45,6 +45,11 @@ function arch_check {
     fi
 }
 
+function show_banner {
+   echo -e "             \e[101m\e[1;37m  ❀  O R C H I D  ❀ \e[0m\n"
+echo -e "\e[101m\e[1;37m| [!]  | Yet Another Server Management Script | V 0.1.0  |\e[0m\n"
+}
+
 function verify_sudo {
     if [[ $(dpkg -s sudo | grep Status) = "Status: install ok installed" ]]; then
         echo "sudo is installed"
@@ -61,16 +66,18 @@ function check_git {
 	echo [✔]::[git]: installation found!;
 else
 
+# Git commit suicide
 echo [x]::[warning]: Orchid requires git;
 echo ""
 echo [!]::[please wait]: Installing git ..  ;
+
 sudo apt install git -y
 echo ""
 fi
 sleep 1
 }
 
-# If this isn't present try not to commit suicide
+# If this isn't present try not to die
 function check_wget {
 	which wget > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
@@ -90,4 +97,4 @@ sleep 1
 
 # Init script
 # Just fucking call all the functions at once
-arch_check && verify_sudo && check_git && check wget && sleep 1
+show_banner # && arch_check && verify_sudo && check_git && check wget && sleep 1
