@@ -97,4 +97,11 @@ sleep 1
 
 # Init script
 # Just fucking call all the functions at once
-show_banner && arch_check && verify_sudo && check_git && check_wget && sleep 1
+show_banner # && arch_check && verify_sudo && check_git && check_wget && sleep 1
+clear
+
+# Menu to call different scripts
+while :
+do
+    echo -e "      ${BRed}[ORCHID MENU]${enda}"
+done
