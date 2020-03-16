@@ -57,13 +57,14 @@ function verify_sudo {
         su -c 'apt install sudo'
         echo "sudo won't have any default configurations, do it manually from this point on"
     fi
+    sleep 1
 }
 
 # Requirements check
 function check_git {
   which git > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
-	echo [✔]::[git]: installation found!;
+	    echo [✔]::[git]: installation found!;
 else
 
 # Git commit suicide
@@ -104,4 +105,13 @@ clear
 while :
 do
     echo -e "      ${BRed}[ORCHID MENU]${enda}"
-done
+    echo -e "      ${BRed}Select an Orchid breed${enda}"
+    # Print a Pretty menu here
+    echo -e "
+
+    [1] - Apache Breed
+    [2] - PostgreSQL Breed
+    [3] - MariaDB Breed
+
+    "
+    done
