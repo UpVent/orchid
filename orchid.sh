@@ -54,4 +54,18 @@ function verify_sudo {
     fi
 }
 
-arch_check
+# Requirements check
+function check_git {
+  which git > /dev/null 2>&1
+	if [ "$?" -eq "0" ]; then
+	echo [✔]::[git]: installation found!;
+else
+
+echo [x]::[warning]:this script requires git;
+echo ""
+echo [!]::[please wait]: Installing git ..  ;
+sudo apt install git -y
+echo ""
+fi
+sleep 1
+}
