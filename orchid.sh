@@ -61,11 +61,28 @@ function check_git {
 	echo [✔]::[git]: installation found!;
 else
 
-echo [x]::[warning]:this script requires git;
+echo [x]::[warning]: Orchid requires git;
 echo ""
 echo [!]::[please wait]: Installing git ..  ;
 sudo apt install git -y
 echo ""
 fi
 sleep 1
+}
+
+function checkwget {
+	which wget > /dev/null 2>&1
+	if [ "$?" -eq "0" ]; then
+	echo [✔]::[wget]: installation found!;
+else
+
+echo [x]::[warning]: Orchid requires wget ;
+echo ""
+echo [!]::[please wait]: Installing Wget ;
+sudo apt install wget -y
+echosleep 2
+echo ""
+fi
+sleep 1
+
 }
