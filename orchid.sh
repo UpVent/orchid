@@ -105,29 +105,6 @@ fi
     sleep 1
 }
 
-function about {
-
-    release=`( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1`
-
-    clear
-    echo "+--------- O R C H I D -----------------+
-          | A simple script for server management |
-          |---------------------------------------|
-          | OS:       ${release}          |
-          | Version:            ALPHA             |
-          +---------------------------------------+
-
-          ${Red}About${enda}
-
-          Orchid is a personal script I made for managing servers without
-          overcomplicating stuff like making new dir structures for apache,
-          managing systemd services, adding, removing, restricting and other
-          helpful server administration things made simpler using a CLI.
-"
-
-    echo && echo -en "${Yellow}Press Enter to return to the main menu${endc}"
-    read -r input
-}
 
 # Init script
 # Just fucking call all the functions at once
@@ -166,5 +143,30 @@ do
         4) breeds/dev-ops/maindevops.sh;;
         a) about ;;
     esac
+
+    function about {
+
+        release=`( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1`
+
+        clear
+        echo "+--------- O R C H I D -----------------+
+          | A simple script for server management |
+          |---------------------------------------|
+          | OS:       ${release}          |
+          | Version:            ALPHA             |
+          +---------------------------------------+
+
+          ${Red}About${enda}
+
+          Orchid is a personal script I made for managing servers without
+          overcomplicating stuff like making new dir structures for apache,
+          managing systemd services, adding, removing, restricting and other
+          helpful server administration things made simpler using a CLI.
+"
+
+        echo && echo -en "${Yellow}Press Enter to return to the main menu${endc}"
+        read -r input
+    }
+
 
     done
