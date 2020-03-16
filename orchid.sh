@@ -142,6 +142,7 @@ do
         3) breeds/dev-lang/mainlang.sh;;
         4) breeds/dev-ops/maindevops.sh;;
         a) about ;;
+        q) quit_script;;
     esac
 
     function about {
@@ -168,5 +169,9 @@ do
         read -r input
     }
 
-
+    function quit_script {
+        echo
+        sleep 1
+        exit
+    }
     done
