@@ -70,7 +70,8 @@ fi
 sleep 1
 }
 
-function checkwget {
+# If this isn't present try not to commit suicide
+function check_wget {
 	which wget > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
 	echo [✔]::[wget]: installation found!;
@@ -86,3 +87,7 @@ fi
 sleep 1
 
 }
+
+# Init script
+# Just fucking call all the functions at once
+arch_check && verify_sudo && check_git && check wget && sleep 1
