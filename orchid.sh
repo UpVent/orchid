@@ -46,16 +46,26 @@ function arch_check {
 }
 
 function show_banner {
+    # Thou shall be called "Orchid", like the first Opeth Album!
    echo -e "             \e[101m\e[1;37m  ❀  O R C H I D  ❀ \e[0m\n"
-echo -e "\e[101m\e[1;37m| [!]  | Yet Another Server Management Script | V 0.1.0  |\e[0m\n"
+   echo -e "\e[101m\e[1;37m| [!]  | Yet Another Server Management Script | V 0.1.0  |\e[0m\n"
 }
 
+# If using "su" convince the user to install ubuntu instead [WIP]
+
 function verify_sudo {
-    if [[ $(dpkg -s sudo | grep Status) = "Status: install ok installed" ]]; then
-        echo "sudo is installed"
+	which sudo > /dev/null 2>&1
+	if [ "$?" -eq "0" ]; then
+	    echo [✔]::[sudo]: installation found!;
     else
-        su -c 'apt install sudo'
-        echo "sudo won't have any default configurations, do it manually from this point on"
+
+        echo [x]::[warning]: Orchid requires sudo ;
+        echo ""
+        echo [!]::[please wait]: Installing sudo;
+        su -c apt install sudo -y
+        echosleep 2
+        echo "You have to configure sudo manually in order to proceed"
+        su -c nano /etc/sudoers
     fi
     sleep 1
 }
@@ -109,9 +119,9 @@ do
     # Print a Pretty menu here
     echo -e "
 
-    [1] - Apache Breed
-    [2] - PostgreSQL Breed
-    [3] - MariaDB Breed
+    [1] - Webserver Breed
+    [2] - Database Breed
+    [3] -
 
     "
     done
