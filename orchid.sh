@@ -72,38 +72,37 @@ function verify_sudo {
 
 # Requirements check
 function check_git {
-  which git > /dev/null 2>&1
+    which git > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
 	    echo [✔]::[git]: installation found!;
-else
+    else
 
-# Git commit suicide
-echo [x]::[warning]: Orchid requires git;
-echo ""
-echo [!]::[please wait]: Installing git ..  ;
+    # Git commit suicide
+    echo [x]::[warning]: Orchid requires git;
+    echo ""
+    echo [!]::[please wait]: Installing git ..  ;
 
-sudo apt install git -y
-echo ""
+    sudo apt install git -y
+    echo ""
 fi
-sleep 1
+    sleep 1
 }
 
 # If this isn't present try not to die
 function check_wget {
 	which wget > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
-	echo [✔]::[wget]: installation found!;
-else
+	    echo [✔]::[wget]: installation found!;
+    else
 
-echo [x]::[warning]: Orchid requires wget ;
-echo ""
-echo [!]::[please wait]: Installing Wget ;
-sudo apt install wget -y
-echosleep 2
-echo ""
+    echo [x]::[warning]: Orchid requires wget ;
+    echo ""
+    echo [!]::[please wait]: Installing Wget ;
+    sudo apt install wget -y
+    echosleep 2
+    echo ""
 fi
-sleep 1
-
+    sleep 1
 }
 
 # Init script
@@ -127,4 +126,14 @@ do
 
         [a] - about this script    [f] - Future plans for this script   [q] - quit
     "
+
+    echo
+
+    echo -en "Select a Breed: "
+    read breed
+
+    case $breed in
+
+    esac
+
     done
