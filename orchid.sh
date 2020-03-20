@@ -37,6 +37,10 @@ w='\E[37m'
 endc='\E[0m'
 enda='\033[0m'
 
+function distro_check {
+    [[ $distro ]] && return
+}
+
 function arch_check {
     if [[ $(uname -m ) = x86_64 ]]; then
         echo -e "\e[32m[-] multilib is already Enabled!\e[0m"
@@ -141,11 +145,11 @@ do
         2) breeds/databases/maindb.sh;;
         3) breeds/dev-lang/mainlang.sh;;
         4) breeds/dev-ops/maindevops.sh;;
-        a) about ;;
+        a) about_script ;;
         q) quit_script;;
     esac
 
-    function about {
+    function about_script {
 
         release=`( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1`
 
