@@ -127,6 +127,19 @@ fi
     sleep 1
 }
 
+# Webserver functions
+
+function webserver {
+    echo -e "${b} Choose your action ${enda}"
+    echo -e "
+         1) Check webserver status
+         2) Init webserver
+         3) Stop webserver
+         4) Restart webserver (Gracefully)
+         5) Stop webserver (Forced)
+         6) Debug webserver
+    "
+}
 
 # Init script
 # Just fucking call all the functions at once
@@ -159,10 +172,10 @@ do
     case $breed in
 
         # Down menu Options
-        1) breeds/web-servers/mainwebservers.sh;;
-        2) breeds/databases/maindb.sh;;
-        3) breeds/dev-lang/mainlang.sh;;
-        4) breeds/dev-ops/maindevops.sh;;
+        1) webserver;;
+        2) database;;
+        3) proglang;;
+        4) devops;;
         a) about_script ;;
         q) quit_script;;
     esac
