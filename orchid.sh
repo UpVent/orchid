@@ -37,6 +37,7 @@ w='\E[37m'
 endc='\E[0m'
 enda='\033[0m'
 
+# TODO: Implement this function
 function distro_check {
     if type lsb_release >/dev/null 2>&1 ; then
         distro=$(lsb_release -i -s)
@@ -46,7 +47,6 @@ function distro_check {
         distro=$(unknown)
 fi
 
-    # convert to lowercase
     distro=$(printf '%s\n' "$distro" | LC_ALL=C tr '[:upper:]' '[:lower:]')
 
     # Check if script is running in Funtoo or Debian
@@ -75,6 +75,7 @@ function show_banner {
 # If using "su" convince the user to install ubuntu instead [WIP]
 
 function verify_sudo {
+
 	which sudo > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
 	    echo [✔]::[sudo]: installation found!;
@@ -187,7 +188,7 @@ do
 "
 
         echo && echo -en "${Yellow}Press Enter to return to the main menu${endc}"
-        read -r input
+        read -r breed
     }
 
     function quit_script {
