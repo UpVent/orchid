@@ -38,7 +38,24 @@ endc='\E[0m'
 enda='\033[0m'
 
 function distro_check {
-    [[ $distro ]] && return
+    if type lsb_release >/dev/null 2>&1 ; then
+        distro=$(lsb_release -i -s)
+    elif [ -e /etc/os-release ] ; then
+        distro=$(awk -F= '$1 == "ID" {print $2}' /etc/os-release)
+    elif [ -e /etc/some-other-release-file ] ; then
+        distro=$(unknown)
+fi
+
+    # convert to lowercase
+    distro=$(printf '%s\n' "$distro" | LC_ALL=C tr '[:upper:]' '[:lower:]')
+
+    # Check if script is running in Funtoo or Debian
+    # Otherwise tell this user not to be an idiot and read the README doc.
+    case "$distro" in
+        debian*)  return 1 ;;
+        funtoo*)  return 2 ;;
+        *)        echo "unknown distro: '$distro'" ; exit 1 ;;
+    esac
 }
 
 function arch_check {
