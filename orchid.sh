@@ -54,6 +54,7 @@ fi
     case "$distro" in
         debian*)  return 1 ;;
         funtoo*)  return 2 ;;
+        ubuntu*)  echo -e "This may or may not work in ubuntu"; return 1 ;;
         *)        echo "unknown distro: '$distro'" ; exit 1 ;;
     esac
 }
