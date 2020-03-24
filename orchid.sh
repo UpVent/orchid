@@ -140,6 +140,15 @@ function webserver {
          5) Stop webserver (Forced)
          6) Debug webserver
     "
+    echo
+    echo -en "Choose an option: "
+    read -r option
+
+    case $option in
+        1) webstatus ;;
+        2) webinit ;;
+        3) sudo systemctl apache2 stop ;;
+    esac
 }
 
 # Init script
