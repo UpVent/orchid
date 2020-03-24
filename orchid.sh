@@ -145,9 +145,11 @@ function webserver {
     read -r option
 
     case $option in
-        1) webstatus ;;
-        2) webinit ;;
-        3) sudo systemctl apache2 stop ;;
+        1) sudo journalctl -xe ;;
+        2) sudo apache2ctl start ;;
+        3) sudo apache2ctl stop;;
+        4) sudo apache2ctl graceful ;;
+        5) sudo systemctl
     esac
 }
 
