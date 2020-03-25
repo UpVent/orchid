@@ -145,11 +145,12 @@ function webserver {
     read -r option
 
     case $option in
-        1) sudo journalctl -xe ;;
+        1) sudo systemctl status apache2 ;;
         2) sudo apache2ctl start ;;
         3) sudo apache2ctl stop;;
         4) sudo apache2ctl graceful ;;
-        5) sudo systemctl
+        5) sudo systemctl stop apache2 ;;
+        6) sudo journalctl -u apache2 ;;
     esac
 }
 
@@ -222,3 +223,5 @@ do
         exit
     }
     done
+
+# Orchid 2020 - VentGrey
