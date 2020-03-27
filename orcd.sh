@@ -79,7 +79,7 @@ fi
 
 [ -L $0 ] && pushd `readlink $0 | xargs dirname` > /dev/null \
     || pushd `dirname $0` > /dev/null
-export MPATH=`pwd -P`
+export OPATH=`pwd -P` # See what I did there? 7u7
 popd > /dev/null
 
 
@@ -98,14 +98,26 @@ function use {
 
    ❀  O R C H I D  ❀
 
-   usage: orcd
+   A personal script for common server tasks
 
+   usage: orcd OPTIONS BREED
 
+          OPTIONS:
+            --update-git | -ug
+            --update | -u
+            --remove | -r
+            --about | -a
+            --help | -h
 
 __EOF__
 
+    for i in ${OPATH}/breeds/*; do
+        [ ! -L "$i" -a -f "$i" ] && echo "    ${i##*/}"
+    done
+
+    [ "${OPTIONS}" == "--help" ] || [ "${OPTIONS}" == "-h" ] && exit 0 || exit 1
+
 }
 
-use
 
 # Orchid 2020 - VentGrey
