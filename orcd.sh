@@ -119,6 +119,8 @@ __EOF__
    
 }
 
+
+
 case $1 in
     --update)
         update && exit 0 ;;
