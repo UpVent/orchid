@@ -15,10 +15,29 @@ function help {
 __EOF__
 }
 
+function check_requirements {
+    which apache2 > /dev/null 2>&1
+	if [ "$?" -eq "0" ]; then
+        # Duh
+	    echo "[✔]::[apache2]: is installed!";
+    else
+        # Simple messages in case I turn into a moron someday
+        echo "[x]::[warning]: Apache Breed requires apache!" ;
+        echo "._. were you planning to use this without apache? wtf"
+        echo "[!]::[please wait]: Installing apache for you..." ;
+        sudo apt install apache2 -y
+        echosleep 2
+        echo ""
+        clear
+    fi
+}
+
 case $1 in
     help) help ;;
 
     on)
+        # Just in case, "no vaya a ser"
+        check_requirements;
         sudo systemctl start apache2 && sudo systemctl enable apache2 ;;
 
     *) help;;
