@@ -22,26 +22,6 @@ fi
     esac
 }
 
-# If using "su" convince the user to install ubuntu instead [WIP]
-
-function verify_sudo {
-
-	which sudo > /dev/null 2>&1
-	if [ "$?" -eq "0" ]; then
-	    echo "[✔]::[sudo]: installation found!";
-    else
-
-        echo "[x]::[warning]: Orchid requires sudo" ;
-        echo ""
-        echo "[!]::[please wait]: Installing sudo";
-        su -c apt install sudo -y
-        echosleep 2
-        echo "You have to configure sudo manually in order to proceed"
-        su -c nano /etc/sudoers
-    fi
-    sleep 1
-}
-
 # Requirements check
 function check_git {
     which git > /dev/null 2>&1
@@ -56,8 +36,10 @@ function check_git {
 
     sudo apt install git -y
     echo ""
+    return 0
 fi
     sleep 1
+    return 0
 }
 
 # If this isn't present try not to die
@@ -73,14 +55,17 @@ function check_wget {
     sudo apt install wget -y
     echosleep 2
     echo ""
+    return 0
 fi
     sleep 1
+    return 0
 }
 
 [ -L $0 ] && pushd `readlink $0 | xargs dirname` > /dev/null \
     || pushd `dirname $0` > /dev/null
 export OPATH=`pwd -P` # See what I did there? 7u7
 popd > /dev/null
+
 
 
 function confirm {
@@ -91,6 +76,12 @@ function confirm {
         *)
             false ;;
     esac
+}
+
+function update {
+    name="orchid"
+    GIT="https://github.com/VentGrey/orchid"
+
 }
 
 function use {
@@ -104,7 +95,6 @@ function use {
           or command help usage.
 
           OPTIONS:
-            --update-git | -ug
             --update | -u
             --uninstall | -un
             --help | -h
@@ -126,10 +116,6 @@ case $1 in
         update && exit 0 ;;
     -u)
         update && exit 0 ;;
-    --update-git)
-        update_git && exit 0 ;;
-    -ug)
-        update_git && exit 0 ;;
     -uninstall)
         uninstall && exit 0 ;;
     -un)
