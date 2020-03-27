@@ -3,7 +3,7 @@
 function help {
     cat <<__EOF__
 
-    usage: orcd apache [ on | off | restart | debug | new [URL] | del [URL] ]
+    usage: orcd apache [ on | off | restart | debug | new | del
 
     on: Turns on the apache webserver
     off: Turns off the apache webserver
@@ -103,6 +103,11 @@ case $1 in
         check_requirements;
         echo "This will assume you'll configure SSL later";
         write_mod ;;
+
+    del)
+        check_requirements;
+        echo "This may result in data loss!";
+        del_mod;;
 
     *) help;;
 esac
