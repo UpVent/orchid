@@ -32,6 +32,53 @@ function check_requirements {
     fi
 }
 
+function del_mod {
+    HOSTS_DIR="/etc/apache2/sites-available/"
+    echo "Please input the (URL) for this virtual host"
+    echo "Example: ventgrey.com"
+    read -r url
+
+    SITE_DIR="/var/www/${url}"
+    sudo rm -rf "${SITE_DIR}"
+    sudo rm "${HOSTS_DIR}/${url}.conf"
+    echo "Virtual Host removed successfully"
+}
+
+function write_mod {
+    HOSTS_DIR="/etc/apache2/sites-available/"
+    echo "Please input the (URL) for this virtual host"
+    echo "Example: ventgrey.com"
+    read -r url
+
+    SITE_DIR="/var/www/${url}/public_html"
+
+    sudo mkdir "${SITE_DIR}"
+    sudo chown -R www-data "${SITE_DIR}"
+
+    sudo cat | tee >"${HOSTS_DIR}/${url}.conf" <<EOL
+    <VirtualHost *:443>
+                 ServerName ${url}
+                 ServerAlias www.${url}
+
+                 DocumentRoot  /var/www/${url}/public_html/
+
+                 <Directory /var/www/${url}/public_html>
+                            Options Includes
+                            Options -FollowSymLinks -Indexes
+                 </Directory>
+    </VirtualHost>
+
+    <VirtualHost *:80>
+                 ServerName ${url}
+                 ServerAlias www.${url}
+                 Redirect permanent / https://{$url}
+    </VirtualHost>
+EOL
+
+    sudo chmod 775 -R "${SITE_DIR}"
+    echo "Virtual Host Written Successfully"
+}
+
 case $1 in
     help) help ;;
 
@@ -39,6 +86,23 @@ case $1 in
         # Just in case, "no vaya a ser"
         check_requirements;
         sudo systemctl start apache2 && sudo systemctl enable apache2 ;;
+
+    off)
+        check_requirements;
+        sudo systemctl stop apache2 ;;
+
+    restart)
+        check_requirements;
+        sudo apache2ctl graceful ;;
+
+    debug)
+        check_requirements;
+        sudo journalctl -u apache2 ;;
+
+    new)
+        check_requirements;
+        echo "This will assume you'll configure SSL later";
+        write_mod ;;
 
     *) help;;
 esac
