@@ -105,8 +105,7 @@ function use {
           OPTIONS:
             --update-git | -ug
             --update | -u
-            --remove | -r
-            --about | -a
+            --uninstall | -un
             --help | -h
 
 __EOF__
@@ -116,8 +115,27 @@ __EOF__
     done
 
     [ "${OPTIONS}" == "--help" ] || [ "${OPTIONS}" == "-h" ] && exit 0 || exit 1
-
+   
 }
 
+case $1 in
+    --update)
+        update && exit 0 ;;
+    -u)
+        update && exit 0 ;;
+    --update-git)
+        update_git && exit 0 ;;
+    -ug)
+        update_git && exit 0 ;;
+    -uninstall)
+        uninstall && exit 0 ;;
+    -un)
+        uninstall && exit 0 ;;
+esac
+
+OPTIONS=$1; shift;
+
+[ ! -f ${OPATH}/breeds/${OPTIONS} ] && usage
+${OPATH}/breeds/${OPTIONS} "$@"
 
 # Orchid 2020 - VentGrey
