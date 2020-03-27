@@ -67,12 +67,6 @@ function arch_check {
     fi
 }
 
-function show_banner {
-    # Thou shall be called "Orchid", like the first Opeth Album!
-   echo -e "             \e[101m\e[1;37m  ❀  O R C H I D  ❀ \e[0m\n"
-   echo -e "\e[101m\e[1;37m| [!]  | Yet Another Server Management Script | V 0.1.0  |\e[0m\n"
-}
-
 # If using "su" convince the user to install ubuntu instead [WIP]
 
 function verify_sudo {
@@ -143,4 +137,20 @@ function confirm {
             false ;;
     esac
 }
+
+function use {
+    cat << __EOF__
+
+   ❀  O R C H I D  ❀
+
+   usage: orcd
+
+
+
+__EOF__
+
+}
+
+use
+
 # Orchid 2020 - VentGrey
