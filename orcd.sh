@@ -36,10 +36,8 @@ function check_git {
 
     sudo apt install git -y
     echo ""
-    return 0
 fi
     sleep 1
-    return 0
 }
 
 # If this isn't present try not to die
@@ -55,10 +53,8 @@ function check_wget {
     sudo apt install wget -y
     echosleep 2
     echo ""
-    return 0
 fi
     sleep 1
-    return 0
 }
 
 [ -L $0 ] && pushd `readlink $0 | xargs dirname` > /dev/null \
