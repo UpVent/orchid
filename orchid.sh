@@ -128,100 +128,19 @@ fi
     sleep 1
 }
 
-# Webserver functions
+[ -L $0 ] && pushd `readlink $0 | xargs dirname` > /dev/null \
+    || pushd `dirname $0` > /dev/null
+export MPATH=`pwd -P`
+popd > /dev/null
 
-function webserver {
-    echo -e "${b} Choose your action ${enda}"
-    echo -e "
-         1) Check webserver status
-         2) Init webserver
-         3) Stop webserver
-         4) Restart webserver (Gracefully)
-         5) Stop webserver (Forced)
-         6) Debug webserver
-    "
-    echo
-    echo -en "Choose an option: "
-    read -r option
 
-    case $option in
-        1) sudo systemctl status apache2 ;;
-        2) sudo apache2ctl start ;;
-        3) sudo apache2ctl stop;;
-        4) sudo apache2ctl graceful ;;
-        5) sudo systemctl stop apache2 ;;
-        6) sudo journalctl -u apache2 ;;
+function confirm {
+    read -r -p "${1:- Are you sure? [Y/n]} " response
+    case $response in
+        [yY][nN][?][qQ])
+            true ;;
+        *)
+            false ;;
     esac
 }
-
-# Init script
-# Just fucking call all the functions at once
-show_banner # && arch_check && verify_sudo && check_git && check_wget && sleep 1
-clear
-
-
-# Menu to call different scripts
-while :
-do
-    echo -e "      ${BRed}[ORCHID MENU]${enda}"
-    echo -e "      ${BRed}Select an Orchid breed${enda}"
-    # Print a Pretty menu here
-    echo -e "
-
-    [1] - Webserver Breed
-    [2] - Database Breed
-    [3] - Dev Lang Breed
-    [4] - DevOps Breed
-
-
-        [a] - about this script   [q] - quit
-    "
-
-    echo
-
-    echo -en "Select a Breed: "
-    read -r breed
-
-    case $breed in
-
-        # Down menu Options
-        1) webserver;;
-        2) database;;
-        3) proglang;;
-        4) devops;;
-        a) about_script ;;
-        q) quit_script;;
-    esac
-
-    function about_script {
-
-        release=`( lsb_release -ds || cat /etc/*release || uname -om ) 2>/dev/null | head -n1`
-
-        clear
-        echo "+--------- O R C H I D -----------------+
-          | A simple script for server management |
-          |---------------------------------------|
-          | OS:       ${release}          |
-          | Version:            ALPHA             |
-          +---------------------------------------+
-
-          ${Red}About${enda}
-
-          Orchid is a personal script I made for managing servers without
-          overcomplicating stuff like making new dir structures for apache,
-          managing systemd services, adding, removing, restricting and other
-          helpful server administration things made simpler using a CLI.
-"
-
-        echo && echo -en "${Yellow}Press Enter to return to the main menu${endc}"
-        read -r breed
-    }
-
-    function quit_script {
-        echo
-        sleep 1
-        exit
-    }
-    done
-
 # Orchid 2020 - VentGrey
