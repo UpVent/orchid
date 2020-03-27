@@ -67,7 +67,6 @@ export OPATH=`pwd -P` # See what I did there? 7u7
 popd > /dev/null
 
 
-
 function confirm {
     read -r -p "${1:- Are you sure? [Y/n]} " response
     case $response in
@@ -76,12 +75,6 @@ function confirm {
         *)
             false ;;
     esac
-}
-
-function update {
-    name="orchid"
-    GIT="https://github.com/VentGrey/orchid"
-
 }
 
 function use {
@@ -95,9 +88,7 @@ function use {
           or command help usage.
 
           OPTIONS:
-            --update | -u
-            --uninstall | -un
-            --help | -h
+            help
 
 __EOF__
 
@@ -105,26 +96,13 @@ __EOF__
         [ ! -L "$i" -a -f "$i" ] && echo "    ${i##*/}"
     done
 
-    [ "${OPTIONS}" == "--help" ] || [ "${OPTIONS}" == "-h" ] && exit 0 || exit 1
+    [ "${OPTIONS}" == "help" ] && exit 0 || exit 1
    
 }
 
-
-
-case $1 in
-    --update)
-        update && exit 0 ;;
-    -u)
-        update && exit 0 ;;
-    -uninstall)
-        uninstall && exit 0 ;;
-    -un)
-        uninstall && exit 0 ;;
-esac
-
 OPTIONS=$1; shift;
 
-[ ! -f ${OPATH}/breeds/${OPTIONS} ] && usage
+[ ! -f ${OPATH}/breeds/${OPTIONS} ] && use
 ${OPATH}/breeds/${OPTIONS} "$@"
 
 # Orchid 2020 - VentGrey
