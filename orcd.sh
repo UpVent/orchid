@@ -22,14 +22,6 @@ fi
     esac
 }
 
-function arch_check {
-    if [[ $(uname -m ) = x86_64 ]]; then
-        echo -e "\e[32m[-] multilib is already Enabled!\e[0m"
-    else
-        echo -e "\e[35m[X] multilib has no guarantee to work here!\e[0m"
-    fi
-}
-
 # If using "su" convince the user to install ubuntu instead [WIP]
 
 function verify_sudo {
@@ -39,7 +31,7 @@ function verify_sudo {
 	    echo [✔]::[sudo]: installation found!;
     else
 
-        echo [x]::[warning]: Orchid requires sudo ;
+        echo -e "[x]::[warning]: Orchid requires sudo" ;
         echo ""
         echo [!]::[please wait]: Installing sudo;
         su -c apt install sudo -y
