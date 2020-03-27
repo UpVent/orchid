@@ -100,7 +100,8 @@ function use {
 
    A personal script for common server tasks
 
-   usage: orcd OPTIONS BREED
+   usage: orcd [OPTIONS] [BREED] or type "--help" to view this screen
+          or command help usage.
 
           OPTIONS:
             --update-git | -ug
