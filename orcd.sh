@@ -28,12 +28,12 @@ function verify_sudo {
 
 	which sudo > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
-	    echo [✔]::[sudo]: installation found!;
+	    echo "[✔]::[sudo]: installation found!";
     else
 
-        echo -e "[x]::[warning]: Orchid requires sudo" ;
+        echo "[x]::[warning]: Orchid requires sudo" ;
         echo ""
-        echo [!]::[please wait]: Installing sudo;
+        echo "[!]::[please wait]: Installing sudo";
         su -c apt install sudo -y
         echosleep 2
         echo "You have to configure sudo manually in order to proceed"
@@ -50,9 +50,9 @@ function check_git {
     else
 
     # Git commit suicide
-    echo [x]::[warning]: Orchid requires git;
+    echo "[x]::[warning]: Orchid requires git";
     echo ""
-    echo [!]::[please wait]: Installing git ..  ;
+    echo "[!]::[please wait]: Installing git..."  ;
 
     sudo apt install git -y
     echo ""
@@ -64,12 +64,12 @@ fi
 function check_wget {
 	which wget > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
-	    echo [✔]::[wget]: installation found!;
+	    echo "[✔]::[wget]: installation found!";
     else
 
-    echo [x]::[warning]: Orchid requires wget ;
+    echo "[x]::[warning]: Orchid requires wget" ;
     echo ""
-    echo [!]::[please wait]: Installing Wget ;
+    echo "[!]::[please wait]: Installing wget" ;
     sudo apt install wget -y
     echosleep 2
     echo ""
