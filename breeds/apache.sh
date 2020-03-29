@@ -3,7 +3,7 @@
 function help {
     cat <<__EOF__
 
-    usage: orcd apache [ on | off | restart | debug | new | del
+    usage: orcd apache [ on | off | restart | debug | new | del ]
 
     on: Turns on the apache webserver
     off: Turns off the apache webserver
