@@ -19,5 +19,21 @@ function help {
 __EOF__
 }
 
+function list {
+    if [ -z "${1}" ]; then
+        lsblk
+    else
+        lsblk "${1}"
+    fi
+}
+
+case $1 in
+    help)  help;;
+    ls) shift list;;
+    status) shift status;;
+    fs) shift filesys;;
+    unplug) shift unplug;;
+
+esac
 
 # 2020 - VentGrey
