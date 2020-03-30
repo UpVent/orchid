@@ -9,11 +9,11 @@ function help {
     Commands:
 
     ls: lists all available disks
-    status: shows information about the consulted device
+    status: shows information about the consulted device (eg: /dev/sdx)
     fs: lists all available filesystems
     unplug: unmounts ALL volumes [potentially dangerous]
     check: Check & Verify all disks available
-    repair: Repairs a given volume
+    repair: Repairs a given volume (eg: /dev/sdx)
     help: show this message
 
 __EOF__
@@ -80,6 +80,11 @@ function check {
     done
 }
 
+function repair {
+    sudo umount "$1"
+    sudo fsck -y  "$1"
+}
+
 case $1 in
     help)  help ;;
     ls) shift list ;;
@@ -87,7 +92,7 @@ case $1 in
     fs) shift filesys ;;
     unplug) shift unplug ;;
     check) shift check ;;
-    repair) shift repair "$@" ;;
+    repair) shift repair "$@";;
     *) help ;;
 
 esac
