@@ -33,7 +33,12 @@ function status {
 }
 
 function filesys {
-    mount | column -t
+    
+}
+
+function unplug {
+    echo "WARNING THIS WILL UNMOUNT ALL DRIVES AT ONCE ARE YOU SURE?"
+    sudo umount -a
 }
 
 case $1 in
