@@ -32,6 +32,10 @@ function status {
     fdisk "${1}"
 }
 
+function filesys {
+    mount | column -t
+}
+
 case $1 in
     help)  help ;;
     ls) shift list ;;
