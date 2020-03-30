@@ -33,12 +33,19 @@ function status {
 }
 
 function filesys {
-    
+    mount | column -t
 }
 
 function unplug {
-    echo "WARNING THIS WILL UNMOUNT ALL DRIVES AT ONCE ARE YOU SURE?"
-    sudo umount -a
+    read -p -r "This may cause data loss are you sure? Y/n" -n 1
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]
+    then
+        sudo umount -a
+    else
+        echo "Invalid response, terminating for security reasons"
+        exit 1
+    fi
 }
 
 case $1 in
