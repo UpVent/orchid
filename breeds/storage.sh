@@ -4,7 +4,7 @@ function help {
     cat << __EOF__
 
     usage: storage ls | status <device> | fs |
-                         unplug | check | repair | help
+                         unplug | check <device> | repair <device> | help
 
     Commands:
 
@@ -25,6 +25,11 @@ function list {
     else
         lsblk "${1}"
     fi
+}
+
+function status {
+    [ -z "${1}" ] && help && exit 1
+    fdisk "${1}"
 }
 
 case $1 in
