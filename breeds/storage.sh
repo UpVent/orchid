@@ -4,7 +4,7 @@ function help {
     cat << __EOF__
 
     usage: storage ls | status <device> | fs |
-                         unplug | check <device> | repair <device> | help
+                         unplug | check | repair <device> | help
 
     Commands:
 
@@ -12,11 +12,27 @@ function help {
     status: shows information about the consulted device
     fs: lists all available filesystems
     unplug: unmounts ALL volumes [potentially dangerous]
-    check: Check & Verify both disks or volumes available
+    check: Check & Verify all disks available
     repair: Repairs a given volume
     help: show this message
 
 __EOF__
+}
+
+function check_requirements {
+    which smartctl > /dev/null 2>&1
+	if [ "$?" -eq "0" ]; then
+        # Duh
+	    echo "[✔]::[smartmontools]: is installed!";
+    else
+        # Simple messages in case I turn into a moron someday
+        echo "[x]::[warning]: Disks Breed requires smartmontools!" ;
+        echo "[!]::[please wait]: Installing smartmontools for you..." ;
+        sudo apt install smartmontools -y
+        echosleep 2
+        echo ""
+        clear
+    fi
 }
 
 function list {
@@ -48,13 +64,29 @@ function unplug {
     fi
 }
 
+function check {
+    check_requirements
+
+
+    mount | grep "/dev/sd" | awk '{print $1}' | while read -r partition
+    do
+        echo "${partition:0:8}"
+    done | sort | uniq | while read -r disk
+    do
+        #All sdX disks are parsed here using the $disk variable
+        echo "Disk : $disk"
+        #Insert your smartctl commands here e.g:
+        sudo smartctl --smart=on --offlineauto=on --saveauto=on $disk
+    done
+}
+
 case $1 in
     help)  help ;;
     ls) shift list ;;
     status) shift status ;;
     fs) shift filesys ;;
     unplug) shift unplug ;;
-    check) shift check "$@" ;;
+    check) shift check ;;
     repair) shift repair "$@" ;;
     *) help ;;
 
