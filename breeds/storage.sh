@@ -28,11 +28,14 @@ function list {
 }
 
 case $1 in
-    help)  help;;
-    ls) shift list;;
-    status) shift status;;
-    fs) shift filesys;;
-    unplug) shift unplug;;
+    help)  help ;;
+    ls) shift list ;;
+    status) shift status ;;
+    fs) shift filesys ;;
+    unplug) shift unplug ;;
+    check) shift check "$@" ;;
+    repair) shift repair "$@" ;;
+    *) help ;;
 
 esac
 
