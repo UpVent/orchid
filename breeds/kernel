@@ -18,5 +18,29 @@ function help {
 
 __EOF__
 }
+case $1 in
+    help) help ;;
+
+    list)
+       list;;
+
+    status)
+         ;;
+
+    download)
+         ;;
+
+    c-kernel)
+         ;;
+
+    cl-kernel)
+         ;;
+
+    llvm-kernel)
+        ;;
+
+    *) help;;
+esac
+
 
 # 2020 - VentGrey
