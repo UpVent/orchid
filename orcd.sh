@@ -24,7 +24,7 @@ function use {
 
    A personal script for common server tasks
 
-   usage: orcd [OPTIONS] [BREED.sh] or type "--help" to view this screen
+   usage: orcd [BREED] [OPTIONS] or type "--help" to view this screen
           or command help usage.
 
           OPTIONS:
