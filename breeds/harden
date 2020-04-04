@@ -1,4 +1,5 @@
 #! /usr/bin/env bash
+
 function help {
     cat <<__EOF__
 
@@ -23,6 +24,7 @@ function help {
 
 __EOF__
 }
+
 
 
 # 2020 - VentGrey
