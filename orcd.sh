@@ -30,10 +30,11 @@ function use {
           OPTIONS:
             help
 
+          BREEDS:
 __EOF__
 
     for i in ${OPATH}/breeds/*; do
-        [ ! -L "$i" -a -f "$i" ] && echo "    ${i##*/}"
+        [ ! -L "$i" -a -f "$i" ] && echo "            ${i##*/}"
     done
 
     [ "${OPTIONS}" == "help" ] && exit 0 || exit 1
