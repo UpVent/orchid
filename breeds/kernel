@@ -1,7 +1,22 @@
 #! /usr/bin/env bash
 
 function help {
+    cat <<__EOF__
 
+    usage: orcd kernel [ list | status | download | c-kernel
+                       | cl-kernel | cy-kernel | llvm-kernel]
+
+    list: Lists all installed kernels
+    status: Shows current kernel information
+    download: Downloads a kernel to /usr/src/
+    c-kernel: Download and compile latest kernel.org kernel
+    cl-kernel: Download and compile using localmodconfig kernel
+    llvm-kernel: Download and compile latest kernel using clang
+
+    WARNING: the *-kernel functions will produce .deb packages for installation.
+             these will be kept in the user's $HOME dir.
+
+__EOF__
 }
 
 # 2020 - VentGrey
