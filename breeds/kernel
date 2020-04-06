@@ -18,11 +18,35 @@ function help {
 
 __EOF__
 }
+
+function list_kernels {
+    KNAME=$(uname -s)
+    KTYPE=$(uname -r)
+    KARCH=$(uname -m)
+    KPROC=$(uname -p)
+
+    apt_kernels=$(dpkg --list | grep linux-image)
+    manual_kernels=$(ls -l /lib/modules/)
+
+    echo "Running kernel:"
+    echo "Kernel type: $KNAME"
+    echo "Kernel version: $KTYPE"
+    echo "Kernel arch: $KARCH"
+    echo "Kernel proc: $KPROC"
+    echo "------------------------------"
+    echo "Kernels installed by apt:"
+    echo "$apt_kernels"
+    echo "------------------------------"
+    echo "Manually installed kernels:"
+    echo "$manual_kernels"
+}
+
+
 case $1 in
     help) help ;;
 
     list)
-       list;;
+       list_kernels;;
 
     status)
          ;;
