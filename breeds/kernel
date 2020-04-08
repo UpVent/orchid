@@ -18,6 +18,23 @@ function help {
 __EOF__
 }
 
+function install_deps {
+    echo "installing dependencies"
+    sudo apt update && sudo apt upgrade
+    sudo apt install -y build-essential libncurses5-dev gcc libssl-dev grub2 bc
+    clear
+    echo "Dependencies installed, proceeding with the next step"
+    clear
+}
+
+function download {
+    echo "Downloading kernel to /usr/src/"
+    sudo wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.2.tar.xz -P /usr/src
+    echo "Kernel downloaded!"
+    clear
+    sleep 2
+}
+
 function list_kernels {
     KNAME=$(uname -s)
     KTYPE=$(uname -r)
@@ -54,6 +71,9 @@ function status {
 }
 
 function c-kernel {
+    install_deps
+    download
+
 
 }
 
