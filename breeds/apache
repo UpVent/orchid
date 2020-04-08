@@ -52,7 +52,7 @@ function write_mod {
 
     SITE_DIR="/var/www/${url}/public_html"
 
-    sudo mkdir "${SITE_DIR}"
+    sudo mkdir -p "${SITE_DIR}"
     sudo chown -R www-data "${SITE_DIR}"
 
     sudo cat | tee >"${HOSTS_DIR}/${url}.conf" <<EOL

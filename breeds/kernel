@@ -41,6 +41,18 @@ function list_kernels {
     echo "$manual_kernels"
 }
 
+function status {
+    KNAME=$(uname -s)
+    KTYPE=$(uname -r)
+    KARCH=$(uname -m)
+    KPROC=$(uname -p)
+
+    echo "Current kernel:"
+    echo "Kernel type: $KNAME"
+    echo "Kernel version: $KTYPE"
+    echo "Kernel arch: $KARCH"
+    echo "Kernel proc: $KPROC"
+}
 
 case $1 in
     help) help ;;

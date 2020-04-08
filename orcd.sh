@@ -3,7 +3,7 @@
 
 [ -L $0 ] && pushd `readlink $0 | xargs dirname` > /dev/null \
     || pushd `dirname $0` > /dev/null
-export OPATH=`pwd -P` # See what I did there? 7u7
+export OPATH=`pwd -P`
 popd > /dev/null
 
 function use {
@@ -32,7 +32,7 @@ __EOF__
 
 OPTIONS=$1; shift;
 
-[ ! -f ${OPATH}/breeds/${OPTIONS} ] && use
+[ ! -f "${OPATH}/breeds/${OPTIONS}" ] && use
 ${OPATH}/breeds/${OPTIONS} "$@"
 
 # Orchid 2020 - VentGrey
