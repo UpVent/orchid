@@ -8,7 +8,6 @@ function help {
 
     list: Lists all installed kernels
     status: Shows current kernel information
-    download: Downloads a kernel to /usr/src/
     c-kernel: Download and compile latest kernel.org kernel
     cl-kernel: Download and compile using localmodconfig kernel
     llvm-kernel: Download and compile latest kernel using clang
@@ -52,6 +51,10 @@ function status {
     echo "Kernel version: $KTYPE"
     echo "Kernel arch: $KARCH"
     echo "Kernel proc: $KPROC"
+}
+
+function c-kernel {
+
 }
 
 case $1 in
