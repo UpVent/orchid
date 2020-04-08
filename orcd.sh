@@ -6,17 +6,6 @@
 export OPATH=`pwd -P` # See what I did there? 7u7
 popd > /dev/null
 
-
-function confirm {
-    read -r -p "${1:- Are you sure? [Y/n]} " response
-    case $response in
-        [yY][nN][?][qQ])
-            true ;;
-        *)
-            false ;;
-    esac
-}
-
 function use {
     cat << __EOF__
 
