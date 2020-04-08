@@ -29,7 +29,7 @@ function install_deps {
 
 function download {
     echo "Downloading kernel to /usr/src/"
-    sudo wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.2.tar.xz -P /usr/src
+    sudo wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.6.2.tar.xz -cO /usr/src/kernel.tar.xz
     echo "Kernel downloaded!"
     clear
     sleep 2
@@ -73,7 +73,23 @@ function status {
 function c-kernel {
     install_deps
     download
+    echo "Entering kernel source directory...."
+    sleep 2
 
+    # Decompress Kernel
+
+    cd /usr/src/ || exit
+    echo "Decompressing kernel tarball"
+    sudo tar -xvf kernel.tar.xz
+    cd kernel || exit
+
+    echo "Kernel won't be configured, please proceed manually"
+    make clean
+    zcat /proc/config.gz > .config || exit
+    make oldconfig || exit
+    make menuconfig || exit
+
+    clear
 
 }
 
