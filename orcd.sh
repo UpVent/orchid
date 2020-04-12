@@ -1,10 +1,11 @@
 #! /usr/bin/env bash
 
 
-[ -L $0 ] && pushd `readlink $0 | xargs dirname` > /dev/null \
-    || pushd `dirname $0` > /dev/null
-export OPATH=`pwd -P`
-popd > /dev/null
+[ -L $0 ] && pushd "$(readlink "$0" | xargs dirname)" > /dev/null \
+    || pushd "$(dirname "$0")" > /dev/null || exit
+OPATH=$(pwd -P)
+export OPATH
+popd > /dev/null || exit
 
 function use {
     cat << __EOF__
@@ -33,6 +34,6 @@ __EOF__
 OPTIONS=$1; shift;
 
 [ ! -f "${OPATH}/breeds/${OPTIONS}" ] && use
-${OPATH}/breeds/${OPTIONS} "$@"
+"${OPATH}"/breeds/"${OPTIONS}" "$@"
 
 # Orchid 2020 - VentGrey
