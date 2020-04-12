@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 
-[ -L $0 ] && pushd "$(readlink "$0" | xargs dirname)" > /dev/null \
+[ -L "$0" ] && pushd "$(readlink "$0" | xargs dirname)" > /dev/null \
     || pushd "$(dirname "$0")" > /dev/null || exit
 OPATH=$(pwd -P)
 export OPATH
@@ -12,7 +12,7 @@ function use {
 
    ❀  O R C H I D  ❀
 
-   A personal script for common server tasks
+   Sysadmin script for common server tasks
 
    usage: orcd [BREED] [OPTIONS] or type "--help" to view this screen
           or command help usage.
@@ -23,7 +23,7 @@ function use {
           BREEDS:
 __EOF__
 
-    for i in ${OPATH}/breeds/*; do
+    for i in "${OPATH}"/breeds/*; do
         [ ! -L "$i" -a -f "$i" ] && echo "            ${i##*/}"
     done
 
