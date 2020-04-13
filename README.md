@@ -1,4 +1,9 @@
-# Orchid
+<h1> Orchid <h1/>
+
+<div align="center">
+    <img src="logo.png">
+</div>
+
 Personal server script to automate common tasks (Might not work for everyone)
 
 ---
