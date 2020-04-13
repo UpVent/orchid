@@ -1,6 +1,6 @@
 <div align="center">
     <h1>Orchid<h1/>
-    <img src="logo.png">
+    <img width="200px" src="logo.png">
 </div>
 
 Personal server script to automate common tasks (Might not work for everyone)
