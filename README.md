@@ -1,6 +1,5 @@
-<h1> Orchid <h1/>
-
 <div align="center">
+    <h1>Orchid<h1/>
     <img src="logo.png">
 </div>
 
