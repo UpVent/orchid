@@ -3,25 +3,25 @@
     <img width="200px" src="logo.png">
 </div>
 
-Personal server script to automate common tasks (Might not work for everyone)
+> "The second record was called Morningrise"
+
+Bash script targeted to sysadmins and server managers who wish to save time.
 
 ---
 
+Orchid was a personal server program originally written in C that tried to
+automate (or reduce keystrokes) in common server tasks on Debian based servers,
+due to it's unstable nature it crashed and caused a lot of trouble since it had
+poorly written C syscalls and code.
 
-Orchid is my personal server script to automate (or reduce keystrokes) in common
-server tasks based on Debian or Funtoo(WIP) based servers.
+UpVent is now taking charge of this program, porting it completely to Bash.
 
-Script works on a module based system, called breeds (like orchid breeds) just
-call the script, the name of the breed and use any commands available.
-
-If you got any request about this script please open a PR or if you don't want
-to code open an issue instead :smile: but that issue may or may not arrive soon
-to orchid.
 
 ## DISCLAIMER
 
-I've never tried to port to bash this script before, so, consider this version
-as a highly experimental "alpha".
+This script is still in testing phase, so it's results shouldn't be taken as
+granted in any way possible, testing is welcome and after some triage features
+will be considered stable and safe to use.
 
 ## Track project goals
 
