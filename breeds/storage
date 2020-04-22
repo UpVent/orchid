@@ -20,7 +20,7 @@ __EOF__
 }
 
 function check_requirements {
-    which smartctl > /dev/null 2>&1
+    command -v smartctl > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
         # Duh
 	    echo "[✔]::[smartmontools]: is installed!";
