@@ -15,22 +15,9 @@ function help {
 __EOF__
 }
 
-function check_requirements {
-    which apache2 > /dev/null 2>&1
-	if [ "$?" -eq "0" ]; then
-        # Duh
-	    echo "[✔]::[apache2]: is installed!";
-    else
-        # Simple messages in case I turn into a moron someday
-        echo "[x]::[warning]: Apache Breed requires apache!" ;
-        echo "._. were you planning to use this without apache? wtf"
-        echo "[!]::[please wait]: Installing apache for you..." ;
-        sudo apt install apache2 -y
-        echosleep 2
-        echo ""
-        clear
-    fi
-}
+source "$PWD"/lib/requiem
+
+requirement apache2;
 
 function del_mod {
     HOSTS_DIR="/etc/apache2/sites-available/"
