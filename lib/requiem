@@ -1,1 +1,12 @@
 #!/bin/bash
+
+function requirement {
+    command -v "$1" > /dev/null 2>&1
+	if [ "$?" -eq "0" ]; then
+	    echo "[✔]::[$1]: is installed!";
+    else
+        echo "[x]::[ERROR]: This Breed requires $1!" ;
+        echosleep 2
+        exit 1
+    fi
+}
