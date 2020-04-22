@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 
 [ -L "$0" ] && pushd "$(readlink "$0" | xargs dirname)" > /dev/null \
