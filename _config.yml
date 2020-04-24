@@ -1,6 +1,6 @@
 title: Orchid - Easy Server Management
 logo: /assets/img/logo.png
-description: Minimal is a theme for GitHub Pages.
+description: Orchid is a bash script aimed to make life easier for geeks & sysadmins.
 show_downloads: true
-google_analytics:
+google_analytics: UA-162785731-2
 theme: jekyll-theme-minimal
