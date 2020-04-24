@@ -15,7 +15,7 @@ function help {
 __EOF__
 }
 
-source "$PWD"/lib/requiem
+source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
 requirement apache2;
 
