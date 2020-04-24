@@ -1,7 +1,12 @@
 #! /usr/bin/env bash
 
 function help {
+    cat <<__EOF__
 
+    usage: orcd djago [ create | daemon ]
+
+
+__EOF__
 }
 
 # 2020 - VentGrey
