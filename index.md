@@ -2,23 +2,18 @@
 layout: default
 ---
 
-Text can be **bold**, _italic_, or ~~strikethrough~~.
+# Orchid - Easy Server Management
 
-[Link to another page](./another-page.html).
+Orchid is a script written in *closest possible* POSIX bash. This script aims
+to provide an easy way to manage, create, destroy or deploy common server
+applications. Orchid also lets you compile kernels and provides basic hardening
+fot common depoyed applications.
 
-There should be whitespace between paragraphs.
+## "The second record was called Morningrise"
 
-There should be whitespace between paragraphs. We recommend including a README, or a file with information about your project.
+Orchid was a personal server program originally written in C that tried to automate (or reduce keystrokes) in common server tasks on Debian based servers, due to it's unstable nature it crashed and caused a lot of trouble since it had poorly written C syscalls and code.
 
-# Header 1
-
-This is a normal paragraph following a header. GitHub is a code hosting platform for version control and collaboration. It lets you and others work together on projects from anywhere.
-
-## Header 2
-
-> This is a blockquote following a header.
->
-> When something is important enough, you do it even if the odds are not in your favor.
+UpVent is now taking charge of this program, porting it completely to Bash.
 
 ### Header 3
 
