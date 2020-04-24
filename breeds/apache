@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# shellcheck source=../lib/requiem
+
+
 function help {
     cat <<__EOF__
 
