@@ -25,3 +25,9 @@ jobs:
     # Runs a single command using the runners shell
     - name: Run shellcheck with reviewdog
       uses: reviewdog/action-shellcheck@v1.0.0
+      with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review # Change reporter.
+          path: "." # Optional.
+          pattern: "*.sh" # Optional.
+          exclude: "./.git/*" # Optional.
