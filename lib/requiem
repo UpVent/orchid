@@ -10,3 +10,8 @@ function requirement {
         exit 1
     fi
 }
+
+function check_root {
+	[ "$(id -u)" -eq 0 ] && return "$TRUE" ||\
+		echo "This module option must be run as root"; exit 1
+}
