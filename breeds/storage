@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# shellcheck source=../lib/requiem
+
+
 function help {
     cat << __EOF__
 
@@ -19,21 +22,9 @@ function help {
 __EOF__
 }
 
-function check_requirements {
-    command -v smartctl > /dev/null 2>&1
-	if [ "$?" -eq "0" ]; then
-        # Duh
-	    echo "[✔]::[smartmontools]: is installed!";
-    else
-        # Simple messages in case I turn into a moron someday
-        echo "[x]::[warning]: Disks Breed requires smartmontools!" ;
-        echo "[!]::[please wait]: Installing smartmontools for you..." ;
-        sudo apt install smartmontools -y
-        echosleep 2
-        echo ""
-        clear
-    fi
-}
+source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
+
+requirement smartctl;
 
 function list {
     if [ -z "${1}" ]; then
