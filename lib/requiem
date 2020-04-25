@@ -3,15 +3,14 @@
 function requirement {
     command -v "$1" > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
-	    echo "[✔]::[$1]: is installed!";
+	    echo -e "[\e[92m✔\e[39m]::[$1]: is installed!";
     else
-        echo "[x]::[ERROR]: This Breed requires $1!" ;
-        echosleep 2
+        echo -e "[\e[1m\e[91mx\e[39m]::[ERROR]: This Breed requires $1!" ;
         exit 1
     fi
 }
 
 function check_root {
 	[ "$(id -u)" -eq 0 ] && return "$TRUE" ||\
-		echo "This module option must be run as root"; exit 1
+		echo -e "\e[31mThis module option must be run as root.\e[39m"; exit 1
 }
