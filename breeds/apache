@@ -23,6 +23,7 @@ source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 requirement apache2;
 
 function del_mod {
+    check_root
     HOSTS_DIR="/etc/apache2/sites-available/"
     echo "Please input the (URL) for this virtual host"
     echo "Example: ventgrey.com"
@@ -35,6 +36,7 @@ function del_mod {
 }
 
 function write_mod {
+    check_root
     HOSTS_DIR="/etc/apache2/sites-available/"
     echo "Please input the (URL) for this virtual host"
     echo "Example: ventgrey.com"
@@ -73,29 +75,28 @@ case $1 in
     help) help ;;
 
     on)
-        # Just in case, "no vaya a ser"
-        check_requirements;
-        sudo systemctl start apache2 && sudo systemctl enable apache2 ;;
+        check_root
+        systemctl start apache2 && sudo systemctl enable apache2 ;;
 
     off)
-        check_requirements;
-        sudo systemctl stop apache2 ;;
+        check_root
+        systemctl stop apache2 ;;
 
     restart)
-        check_requirements;
-        sudo apache2ctl graceful ;;
+        check_root
+        apache2ctl graceful ;;
 
     debug)
-        check_requirements;
-        sudo journalctl -u apache2 ;;
+        check_root
+        journalctl -u apache2 ;;
 
     new)
-        check_requirements;
+        check_root
         echo "This will assume you'll configure SSL later";
         write_mod ;;
 
     del)
-        check_requirements;
+        check_root
         echo "This may result in data loss!";
         del_mod;;
 
