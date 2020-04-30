@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# shellcheck source=../lib/requiem
+
+function help {
+    cat <<__EOF__
+
+    usage: orcd wordpress [ apache | nginx ]
+
+    apache: Installs a wordpress instance using Apache2.
+    nginx: Installs a wordpress instance using nginx.
+
+__EOF__
+}
+
+case $1 in
+    help) help ;;
+
+    apache)
+        check_root
+        wp_apache ;;
+
+    nginx)
+        check_root
+        wp_nginx ;;
+
+    *) help;;
+esac
