@@ -26,7 +26,7 @@ function del_mod {
     check_root
     HOSTS_DIR="/etc/apache2/sites-available/"
     echo "Please input the (URL) for this virtual host"
-    echo "Example: ventgrey.com"
+    echo "Example: example.com"
     read -r url
 
     SITE_DIR="/var/www/${url}"
@@ -40,7 +40,7 @@ function write_mod {
     check_root
     HOSTS_DIR="/etc/apache2/sites-available/"
     echo "Please input the (URL) for this virtual host"
-    echo "Example: ventgrey.com"
+    echo "Example: example.com"
     read -r url
 
     SITE_DIR="/var/www/${url}/public_html"
