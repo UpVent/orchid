@@ -35,4 +35,4 @@ OPTIONS=$1; shift;
 [ ! -f "${OPATH}/breeds/${OPTIONS}" ] && use
 "${OPATH}"/breeds/"${OPTIONS}" "$@"
 
-# Orchid 2020 - VentGrey
+# Orchid 2020 - UpVent
