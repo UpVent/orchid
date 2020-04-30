@@ -47,7 +47,8 @@ function unplug {
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
     then
-        sudo umount -a
+        check_root
+        umount -a
     else
         echo "Invalid response, terminating for security reasons"
         exit 1
@@ -57,7 +58,6 @@ function unplug {
 function check {
     check_requirements
 
-
     mount | grep "/dev/sd" | awk '{print $1}' | while read -r partition
     do
         echo "${partition:0:8}"
@@ -65,14 +65,15 @@ function check {
     do
         #All sdX disks are parsed here using the $disk variable
         echo "Disk : $disk"
-        #Insert your smartctl commands here e.g:
-        sudo smartctl --smart=on --offlineauto=on --saveauto=on $disk
+        check_root
+        smartctl --smart=on --offlineauto=on --saveauto=on "$disk"
     done
 }
 
 function repair {
-    sudo umount "$1"
-    sudo fsck -y  "$1"
+    check_root
+    umount "$1"
+    fsck -y  "$1"
 }
 
 case $1 in
@@ -87,4 +88,4 @@ case $1 in
 
 esac
 
-# 2020 - VentGrey
+# 2020 - UpVent
