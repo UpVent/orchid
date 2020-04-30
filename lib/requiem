@@ -13,9 +13,9 @@ function check_os {
     distro=$(printf '%s\n' "$distro" | LC_ALL=C tr '[:upper:]' '[:lower:]')
 
     case "$distro" in
-        debian*)  commands-for-debian ;;
-        ubuntu*)  commands-for-ubuntu ;;
-        mint*)    commands-for-mint ;;
+        debian*)  return 1 ;;
+        ubuntu*)  return 2 ;;
+        mint*)    return 2 ;;
         *)        echo -e "Unsupported distribution: '$distro'" ; exit 1 ;;
     esac
 }
