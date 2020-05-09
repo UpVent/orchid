@@ -2,6 +2,8 @@
 
 # shellcheck source=../lib/requiem
 
+source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
+
 function help {
     cat <<__EOF__
 
@@ -13,16 +15,34 @@ function help {
 __EOF__
 }
 
+function wp_install {
+    # Check for requirements
+    requirement dialog
+    requirement wget
+
+    # Wordpress variables
+    echo "Please input the (URL) for this wordpress site"
+    echo "Example: example.com"
+    read -r url
+
+    wp_path="/var/www/${url}"
+    wp_src="https://wordpress.org/latest.tar.gz"
+    user="wpuser"
+    database="wpdatabase"
+    table="wp_"
+
+}
+
 case $1 in
     help) help ;;
 
     apache)
         check_root
-        wp_apache ;;
+        wp_install "apache";;
 
     nginx)
         check_root
-        wp_nginx ;;
+        wp_install "nginx";;
 
     *) help;;
 esac
