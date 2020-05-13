@@ -43,10 +43,10 @@ function write_mod {
 
     SITE_DIR="/var/www/${url}/public_html"
 
-    sudo mkdir -p "${SITE_DIR}"
-    sudo chown -R www-data "${SITE_DIR}"
+    mkdir -p "${SITE_DIR}"
+    chown -R www-data "${SITE_DIR}"
 
-    sudo cat | tee >"${HOSTS_DIR}/${url}.conf" <<EOL
+    cat > "${HOSTS_DIR}/${url}.conf" <<EOL
     <VirtualHost *:443>
                  ServerName ${url}
                  ServerAlias www.${url}
