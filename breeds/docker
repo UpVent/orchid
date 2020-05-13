@@ -19,5 +19,7 @@ function help {
 __EOF__
 }
 
+echo "This module doesn't work yet."
+exit 1
 
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
