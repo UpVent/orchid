@@ -62,9 +62,10 @@ function write_mod {
     </VirtualHost>
 
     <VirtualHost *:80>
-                 ServerName ${url}
-                 ServerAlias www.${url}
-                 Redirect permanent / https://{$url}
+    # Uncomment to redirect to https
+                  ServerName ${url}
+                  ServerAlias www.${url}
+                 # Redirect permanent / https://{$url}
     </VirtualHost>
 EOL
 
