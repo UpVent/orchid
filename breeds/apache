@@ -19,8 +19,6 @@ __EOF__
 
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
-requirement apache2;
-
 function del_mod {
     requirement apache2
     check_root
@@ -77,7 +75,7 @@ case $1 in
     help) help ;;
 
     on)
-        check_root
+        check_root;
         systemctl start apache2 && systemctl enable apache2 ;;
 
     off)
@@ -94,7 +92,6 @@ case $1 in
 
     new)
         check_root
-        echo "This will assume you'll configure SSL later";
         write_mod ;;
 
     del)
