@@ -62,7 +62,7 @@ function write_mod {
     }
 EOL
 
-    sudo chmod 775 -R "${SITE_DIR}"
+    chmod 775 -R "${SITE_DIR}"
     echo "Virtual Host Written Successfully"
 }
 
