@@ -29,7 +29,7 @@ function del_mod {
 
     SITE_DIR="/var/www/${url}"
     rm -rf "${SITE_DIR}"
-    rm "${HOSTS_DIR}/${url}.conf"
+    rm "${HOSTS_DIR}/${url}"
     echo "Server Block removed successfully"
 }
 
@@ -46,7 +46,7 @@ function write_mod {
     mkdir -p "${SITE_DIR}"
     chown -R www-data "${SITE_DIR}"
 
-    cat > "${HOSTS_DIR}/${url}.conf" <<EOL
+    cat > "${HOSTS_DIR}/${url}" <<EOL
     server {
            listen 80 default_server;
            listen [::]:80 default_server;
@@ -63,7 +63,7 @@ function write_mod {
 EOL
 
     chmod 775 -R "${SITE_DIR}"
-    echo "Virtual Host Written Successfully"
+    echo "Server Block Written Successfully"
 }
 
 case $1 in
