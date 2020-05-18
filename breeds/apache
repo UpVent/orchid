@@ -28,8 +28,8 @@ function del_mod {
     read -r url
 
     SITE_DIR="/var/www/${url}"
-    sudo rm -rf "${SITE_DIR}"
-    sudo rm "${HOSTS_DIR}/${url}.conf"
+    rm -rf "${SITE_DIR}"
+    rm "${HOSTS_DIR}/${url}.conf"
     echo "Virtual Host removed successfully"
 }
 
@@ -67,7 +67,7 @@ function write_mod {
     </VirtualHost>
 EOL
 
-    sudo chmod 775 -R "${SITE_DIR}"
+    chmod 775 -R "${SITE_DIR}"
     echo "Virtual Host Written Successfully"
 }
 
