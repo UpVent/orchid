@@ -22,7 +22,7 @@ source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 function del_mod {
     requirement nginx
     check_root
-    HOSTS_DIR="/etc/nginx/sites-available/"
+    HOSTS_DIR="/etc/nginx/sites-available"
     echo "Please input the (URL) for this server block"
     echo "Example: example.com"
     read -r url

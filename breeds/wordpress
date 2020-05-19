@@ -1,0 +1,11 @@
+
+#!/bin/bash
+
+# shellcheck source=../lib/requiem
+
+
+source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
+
+
+
+# Orchid 2020 - UpVent
