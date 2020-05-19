@@ -22,7 +22,7 @@ source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 function del_mod {
     requirement apache2
     check_root
-    HOSTS_DIR="/etc/apache2/sites-available/"
+    HOSTS_DIR="/etc/apache2/sites-available"
     echo "Please input the (URL) for this virtual host"
     echo "Example: example.com"
     read -r url
