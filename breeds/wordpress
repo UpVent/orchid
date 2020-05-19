@@ -1,11 +1,89 @@
-
 #!/bin/bash
 
 # shellcheck source=../lib/requiem
 
+function help {
+    cat <<__EOF__
+
+    usage: orcd wordpress [ new ]
+
+    new: Creates a new wordpress installation (install wizard)
+
+__EOF__
+}
 
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
+function install_wordpress() {
+    check_root
+    echo "----Wordpress installation process will begin----"
+    echo "----Please input the options Orchid requires----"
 
+    # MySQL / MariaDB credentials
+    read -pr "Database host: " dbhost
+    read -pr "Database name: " dbname
+    read -pr "Database user: " dbuser
+    read -pr "Database password: " dbpassword
+
+    read -pr "Do you wish to create a new database with these credentials? (y/n): " new_db
+
+    if [ "$new_db" == 'y' || "$new_db" == 'Y' ] ; then
+       mariadb -u$dbuser -p$dbpassword <<EOF
+       CREATE DATABASE IF NOT EXISTS $dbname;
+       GRANT ALL PRIVILEGES ON $dbname.* TO '$dbuser'@'localhost';
+       ALTER DATABASE $dbname CHARACTER SET utf8 COLLATE utf8_general_ci;
+       EOF
+    fi
+
+    echo
+
+    # Download, unzip and install latest wordpress
+    curl -O https://wordpress.org/latest.tar.gz
+    requirement tar
+    tar -zxvf latest.tar.gz
+    # change directory to wordpress
+	cd wordpress
+	# copy file to parent directory
+	cp -rf . ..
+	# move back to parent directory
+	cd ..
+	# remove files from the wordpress folder
+	rm -R wordpress
+	# create wp config
+	cp wp-config-sample.php wp-config.php
+	# set database details with perl find and replace
+	perl -pi -e "s/database_name_here/$dbname/g" wp-config.php
+	perl -pi -e "s/username_here/$dbuser/g" wp-config.php
+	perl -pi -e "s/password_here/$dbpass/g" wp-config.php
+
+	# set WP salts
+	perl -i -pe'
+	   BEGIN {
+	     @chars = ("a" .. "z", "A" .. "Z", 0 .. 9);
+	     push @chars, split //, "!@#$%^&*()-_ []{}<>~\`+=,.;:/?|";
+	     sub salt { join "", map $chars[ rand @chars ], 1 .. 64 }
+	   }
+	   s/put your unique phrase here/salt()/ge
+	' wp-config.php
+
+	# create uploads folder and set permissions
+	mkdir wp-content/uploads
+	chmod 775 wp-content/uploads
+	echo "Cleaning..."
+	# remove zip file
+	rm latest.tar.gz
+	echo "Wordpress installed..."
+
+}
+
+case $1 in
+    help) help ;;
+
+    new)
+        check_root
+        install_wordpress ;;
+
+    *) help;;
+esac
 
 # Orchid 2020 - UpVent
