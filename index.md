@@ -4,6 +4,10 @@ layout: default
 
 # Orchid - Easy Server Management
 
+**This is a documentation page. For project information please go to the
+[project page](https://upvent.codes/orchid)**
+
+
 Orchid is a script written in *closest possible* POSIX bash. This script aims
 to provide an easy way to manage, create, destroy or deploy common server
 applications. Orchid also lets you compile kernels and provides basic hardening
@@ -15,14 +19,47 @@ Orchid was a personal server program originally written in C that tried to autom
 
 UpVent is now taking charge of this program, porting it completely to Bash.
 
-### Header 3
+## Project layout
+
+Orchid works in a modular way, since all of the "breeds" mentioned are
+really detachable separate bash files that can be modified, added or
+deleted without any problem as long as the bash syntax is correct.
+
+Orchid has the current layout
+
+```
+.
+├── LICENSE
+├── README.md
+├── breeds
+│   ├── module1
+│   ├── module2
+│   └── module3
+├── lib
+│   └── requiem
+├── logo.png
+├── man
+│   └── orcd
+└── orcd
+```
+
+Let's cover the following files and directories in short to understand
+the orchid project structure:
+
+* `LICENSE`: Is the license file of the project. It is the GPL-2 License.
+* `README.md`: This is the markdown file you saw at the GitHub repository!
+* `breeds/*`: This is a directory where modules are added into. Just create
+a new file without the `.sh` extension and it should be ready to go.
+* `lib/*`: This is a directory where libraries should be placed.
+* `lib/requiem`: Requiem is a library where common functions amongst
+*all modules* are created. Functions such as dependencies, privilege
+checks and validators for modules in Orchid.
+* `logo.png`: Should we **Really** explain this?
+* `man/orcd`: Here is the project manpage.
+* `orcd`: Main orchid bash program.
 
 
-
-#### Header 4
-
-
-##### Header 5
+## How does Orchid auto-detects modules? Why is it so small?
 
 
 
