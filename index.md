@@ -8,6 +8,12 @@ layout: default
 [project page](https://upvent.codes/orchid)**
 
 
+> Disclaimer: Orchid is what you can call a "Server Management Swiss Knife"
+> and should not be confused with the same capabilities of server automation
+> software like Ansible or control panels like Webmin. Orchid is just for
+> reducing the most common steps in server applications setup, quick
+> management and deploy.
+
 Orchid is a script written in *closest possible* POSIX bash. This script aims
 to provide an easy way to manage, create, destroy or deploy common server
 applications. Orchid also lets you compile kernels and provides basic hardening
@@ -61,77 +67,39 @@ checks and validators for modules in Orchid.
 
 ## How does Orchid auto-detects modules? Why is it so small?
 
+Believe it or not Orchid is a 38-line only project. That's it.
+Just 38 lines of Bash code to make this awesome server swiss knife.
+
+All the magic happens within this function which searches and
+indexes the current modules (breeds) under the `breeds/` directory.
+
+```bash
+    for i in "${OPATH}"/breeds/*; do
+        [ ! -L "$i" -a -f "$i" ] && echo "            ${i##*/}"
+    done
+
+    [ "${OPTIONS}" == "help" ] && exit 0 || exit 1
+   
+}
+
+OPTIONS=$1; shift;
+
+[ ! -f "${OPATH}/breeds/${OPTIONS}" ] && use
+"${OPATH}"/breeds/"${OPTIONS}" "$@"
+```
+
+This keeps orchid as a **Very** lightweight program and
+the slow tasks can be assigned to the modules instead
+such as installing, setting up or quick-managing server
+side software.
 
 
-###### Project reach
+## Current Modules
 
-| head1        | head two          | three |
+| Image        | Name          | Capabilities |
 |:-------------|:------------------|:------|
 | ok           | good swedish fish | nice  |
 | out of stock | good and plenty   | nice  |
 | ok           | good `oreos`      | hmm   |
 | ok           | good `zoute` drop | yumm  |
 
-### There's a horizontal rule below this.
-
-* * *
-
-### Here is an unordered list:
-
-*   Item foo
-*   Item bar
-*   Item baz
-*   Item zip
-
-### And an ordered list:
-
-1.  Item one
-1.  Item two
-1.  Item three
-1.  Item four
-
-### And a nested list:
-
-- level 1 item
-  - level 2 item
-  - level 2 item
-    - level 3 item
-    - level 3 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-  - level 2 item
-  - level 2 item
-- level 1 item
-
-### Small image
-
-![Octocat](https://github.githubassets.com/images/icons/emoji/octocat.png)
-
-### Large image
-
-![Branching](https://guides.github.com/activities/hello-world/branching.png)
-
-
-### Definition lists can be used with HTML syntax.
-
-<dl>
-<dt>Name</dt>
-<dd>Godzilla</dd>
-<dt>Born</dt>
-<dd>1952</dd>
-<dt>Birthplace</dt>
-<dd>Japan</dd>
-<dt>Color</dt>
-<dd>Green</dd>
-</dl>
-
-```
-Long, single-line code blocks should not wrap. They should horizontally scroll if they are too long. This line should be long enough to demonstrate this.
-```
-
-```
-The final element.
-```
