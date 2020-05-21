@@ -72,13 +72,65 @@ EOL
     echo "Virtual Host Written Successfully"
 }
 
-function bckup() {
+function bckup_first() {
+    now=$(date)
+
     requirement "git";
+
+    # Create a git directory where the files will be served
     mkdir /git
+    # Assign permissions to the current user
     chown "$USER":"$USER" /git
     cd /git || exit 1 # Exit in case backup directory fails
+
+    # Init an empty repo
     git init --bare apache2
 
+    # Backup the current apache contents just in case
+    # a mistake happens while converting the directory
+    # into version controlled configuration files.
+    cp -rp /etc/apache2 /etc/apache2.bak
+
+    # Move all the contents of apache into the repository
+    mv /etc/apache2/* /git/apache2
+
+    # Warn the user about not doing stuff
+    echo -e "\e[1m\e[31mDO NOT TAMPER WITH APACHE UNTIL 'SAFE' IS DISPLAYED\e[0m"
+
+    # Remove the empty apache2 directory
+    rm /etc/apache2
+
+    # Make sure apache's files are owned by root
+    find /git/apache2 -name '.?*' -prune -o -exec chown root:root {} +
+
+    # Create a symlink to the repository so the apache2 daemon can find it
+    ln -s /git/apache2 /etc/apache2
+
+    # [DEBUG] Check if symlink was created correctly
+    # ls -l /etc | grep apache2
+
+    # Check if apache can be reloaded properly
+    # TODO: Add this to lib/requiem
+    if apache2ctl graceful; then
+        echo "Apache server restarted correctly! "
+    elif apache2ctl reload; then
+        echo "Apache couldn't be reloaded gracefully. Force reloaded it, expect downtime"
+    else
+        echo "Apache could not be reloaded! Check before proceeding"
+        exit 1
+    fi
+
+    # Tell the user we are making the first commit 'cause yes
+    echo -e "Now commiting changes..."
+
+    # Just add everything, damn it.
+    git add .
+    # Create a commit message
+    git commit -a -m "Apache Backup - Date: ${now}"
+    # Push changes to the repository
+    git push origin master
+
+    echo -e "Backup process completed, apache is \e[1m\e[32mSAFE\e[0m"
 }
 
 case $1 in
@@ -111,8 +163,9 @@ case $1 in
 
     backup)
         check_root
-        echo "Make sure you are running this in a remote machine where the backup can be stored"
+        echo "Make sure to git clone the resulting repo in a remote machine where the backup can be stored"
         bckup
+        echo "Apache backup succeeded!"
         ;;
 
     *) help;;
