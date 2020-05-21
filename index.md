@@ -96,10 +96,9 @@ side software.
 
 ## Current Modules
 
-| Image        | Name          | Capabilities |
-|:-------------|:------------------|:------|
-| ![Apache Logo](https://cdn.iconscout.com/icon/free/png-256/apache-8-1174973.png)| good swedish fish | nice  |
-| out of stock | good and plenty   | nice  |
-| ok           | good `oreos`      | hmm   |
-| ok           | good `zoute` drop | yumm  |
+| Image                                                                                  | Name    | Functions                                       |
+|:---------------------------------------------------------------------------------------|:--------|:------------------------------------------------|
+| ![Apache Logo](https://cdn.iconscout.com/icon/free/png-256/apache-8-1174973.png)       | Apache  | [ on, off, restart, debug, new, del, backup ]   |
+| ![NGINX Logo](https://cdn.iconscout.com/icon/free/png-256/nginx-226030.png)            | NGINX   | [ on, off, restart, debug, new, del ]           |
+| ![Storage](https://cdn2.iconfinder.com/data/icons/circular-icon-set/256/HardDrive.png) | Storage | [ ls, status, fs, unplug, check, repair, help ] |
 
