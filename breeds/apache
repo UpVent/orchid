@@ -13,6 +13,7 @@ function help {
     debug: Use systemd to debug the apache service
     new: Writes a new virtual host under /etc/apache2/sites-available/
     del: Deletes a virtual host under /etc/apache2/sites-available/
+    backup: Creates an apache backup git directory on a remote machine
 
 __EOF__
 }
@@ -71,6 +72,15 @@ EOL
     echo "Virtual Host Written Successfully"
 }
 
+function bckup() {
+    requirement "git";
+    mkdir /git
+    chown "$USER":"$USER" /git
+    cd /git || exit 1 # Exit in case backup directory fails
+    git init --bare apache2
+
+}
+
 case $1 in
     help) help ;;
 
@@ -98,6 +108,12 @@ case $1 in
         check_root
         echo "This may result in data loss!";
         del_mod;;
+
+    backup)
+        check_root
+        echo "Make sure you are running this in a remote machine where the backup can be stored"
+        bckup
+        ;;
 
     *) help;;
 esac
