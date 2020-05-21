@@ -98,7 +98,7 @@ side software.
 
 | Image        | Name          | Capabilities |
 |:-------------|:------------------|:------|
-| ok           | good swedish fish | nice  |
+| ![Apache Logo](https://cdn.iconscout.com/icon/free/png-256/apache-8-1174973.png)| good swedish fish | nice  |
 | out of stock | good and plenty   | nice  |
 | ok           | good `oreos`      | hmm   |
 | ok           | good `zoute` drop | yumm  |
