@@ -18,7 +18,23 @@ __EOF__
 }
 
 function virt_ubuntu() {
-   
+    requirement kvm;
+    requirement libvirt-bin;
+    requirement virt-manager;
+    requirement virt-viewer;
+    requirement virt-top;
+    requirement virt-what;
+
+    # Ask user for specifications
+    read -pr "Input the virtual server name" vm_name
+    echo
+    read -pr "Input the number of CPU's for this virtual server" vm_cpu
+    echo
+    read -pr "Input the ram size (MB) for this virtual server" vm_ram
+
+
+    # Create a new ubuntu instance using virt
+    virt-install -name="Ubuntu" -vcpus=
 }
 
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
@@ -26,37 +42,25 @@ source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 case $1 in
     help) help ;;
 
-    on)
+    ubuntu)
         check_root;
         systemctl start apache2 && systemctl enable apache2 ;;
 
-    off)
+    debian)
         check_root
         systemctl stop apache2 ;;
 
-    restart)
+    centos)
         check_root
         apache2ctl graceful ;;
 
-    debug)
+    fedora)
         check_root
         journalctl -u apache2 ;;
 
-    new)
+    custom)
         check_root
         write_mod ;;
-
-    del)
-        check_root
-        echo "This may result in data loss!";
-        del_mod;;
-
-    backup)
-        check_root
-        echo "Make sure to git clone the resulting repo in a remote machine where the backup can be stored"
-        bckup
-        echo "Apache backup succeeded!"
-        ;;
 
     *) help;;
 esac
