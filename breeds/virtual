@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# shellcheck source=../lib/requiem
+
+function help {
+    cat <<__EOF__
+
+    usage: orcd virtual [ help | ubuntu | debian | centos | fedora | custom ]
+
+    ubuntu: Virtualize the latest ubuntu server (LTS)
+    debian: Virtualize the latest Debian server
+    centos: Virtualize the latest CentOS / CentOS Stream
+    fedora: Virtualize the latest Fedora
+    custom: Virtualize a custom ISO
+    help: Print this message
+
+__EOF__
+}
+
+function virt_ubuntu() {
+   
+}
+
+source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
+
+case $1 in
+    help) help ;;
+
+    on)
+        check_root;
+        systemctl start apache2 && systemctl enable apache2 ;;
+
+    off)
+        check_root
+        systemctl stop apache2 ;;
+
+    restart)
+        check_root
+        apache2ctl graceful ;;
+
+    debug)
+        check_root
+        journalctl -u apache2 ;;
+
+    new)
+        check_root
+        write_mod ;;
+
+    del)
+        check_root
+        echo "This may result in data loss!";
+        del_mod;;
+
+    backup)
+        check_root
+        echo "Make sure to git clone the resulting repo in a remote machine where the backup can be stored"
+        bckup
+        echo "Apache backup succeeded!"
+        ;;
+
+    *) help;;
+esac
+# 2020 - UpVent
