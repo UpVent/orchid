@@ -25,16 +25,21 @@ function virt_ubuntu() {
     requirement virt-top;
     requirement virt-what;
 
+    echo "Downloading latest Ubuntu LTS..."
+    wget -O /tmp/ubuntu-latest.iso https://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso
+
     # Ask user for specifications
     read -pr "Input the virtual server name" vm_name
     echo
     read -pr "Input the number of CPU's for this virtual server" vm_cpu
     echo
     read -pr "Input the ram size (MB) for this virtual server" vm_ram
-
+    echo
+    read -pr "Input the disk size (GB) fo the vm" vm_disk
+    echo
 
     # Create a new ubuntu instance using virt
-    virt-install -name="Ubuntu" -vcpus=
+    virt-install -name="${vm_name}" -vcpus="${vm_cpu}" -memory="${vm_ram}" -cdrom="/tmp/ubuntu-latest.iso" --disk-size="${vm_disk}"
 }
 
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
