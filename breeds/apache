@@ -126,6 +126,26 @@ function bckup_first() {
     # Just add everything, damn it.
     git add .
     # Create a commit message
+    git commit -a -m "First Apache Backup - Date: ${now}"
+    # Push changes to the repository
+    git push origin master
+
+    echo -e "Backup process completed, apache is \e[1m\e[32mSAFE\e[0m"
+}
+
+function bckup() {
+    echo "Apache is being backed up"
+    echo -e "\e[1m\e[31mDO NOT TAMPER WITH APACHE UNTIL 'SAFE' IS DISPLAYED\e[0m"
+
+    # Make sure apache's files are owned by root
+    find /git/apache2 -name '.?*' -prune -o -exec chown root:root {} +
+
+    # Tell the user we are commiting all changes they might have added
+    echo -e "Now commiting /git/* changes "
+
+    # Commit all the current configuration changes into /git
+    git add .
+    # Create a commit message
     git commit -a -m "Apache Backup - Date: ${now}"
     # Push changes to the repository
     git push origin master
@@ -163,9 +183,24 @@ case $1 in
 
     backup)
         check_root
-        echo "Make sure to git clone the resulting repo in a remote machine where the backup can be stored"
-        bckup
-        echo "Apache backup succeeded!"
+        echo "Checking if backup was created previously"
+
+        DIR="/git/.git"
+
+        # If the /git directory doesn't exist then run the first backup function
+        # if it does exist run the normal backup option
+       
+        if [ ! -f "$DIR" ]; then
+            echo "Make sure to git clone the resulting repo in a remote machine where the backup can be stored"
+            bckup_first;
+            echo "First apache backup succeeded! Please check /git"
+        elif [ -d "$DIR" ]; then
+            bckup
+            echo "Apache backup succeeded!"
+        else
+            echo "Unhandled error"
+            exit 1
+        fi
         ;;
 
     *) help;;
