@@ -1,21 +1,24 @@
 #!/bin/bash
 
 # shellcheck source=../lib/requiem
+# shellcheck source=../lib/mist
 
 function help {
     cat <<__EOF__
 
-    usage: orcd virtual [ help | ubuntu | debian | centos | fedora | custom ]
+    usage: orcd virtual [ help | ubuntu | debian | centos | fedora ]
 
     ubuntu: Virtualize the latest ubuntu server (LTS)
     debian: Virtualize the latest Debian server
     centos: Virtualize the latest CentOS / CentOS Stream
     fedora: Virtualize the latest Fedora
-    custom: Virtualize a custom ISO
     help: Print this message
 
 __EOF__
 }
+
+source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
+source "$( dirname "${BASH_SOURCE[0]}" )/../lib/mist"
 
 function virt_ubuntu() {
     requirement kvm;
@@ -25,8 +28,7 @@ function virt_ubuntu() {
     requirement virt-top;
     requirement virt-what;
 
-    echo "Downloading latest Ubuntu LTS..."
-    wget -O /tmp/ubuntu-latest.iso https://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso
+    fetch_distro ubuntu
 
     # Ask user for specifications
     read -pr "Input the virtual server name" vm_name
@@ -38,34 +40,100 @@ function virt_ubuntu() {
     read -pr "Input the disk size (GB) fo the vm" vm_disk
     echo
 
-    # Create a new ubuntu instance using virt
-    virt-install -name="${vm_name}" -vcpus="${vm_cpu}" -memory="${vm_ram}" -cdrom="/tmp/ubuntu-latest.iso" --disk-size="${vm_disk}"
+    # Create a new ubuntu instance using libmist
+   new_virt "$vm_name" "$vm_cpu" "$vm_ram" "$vm_disk" "ubuntu"
 }
 
-source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
+function virt_debian() {
+    requirement kvm;
+    requirement libvirt-bin;
+    requirement virt-manager;
+    requirement virt-viewer;
+    requirement virt-top;
+    requirement virt-what;
+
+    fetch_distro ubuntu
+
+    # Ask user for specifications
+    read -pr "Input the virtual server name" vm_name
+    echo
+    read -pr "Input the number of CPU's for this virtual server" vm_cpu
+    echo
+    read -pr "Input the ram size (MB) for this virtual server" vm_ram
+    echo
+    read -pr "Input the disk size (GB) fo the vm" vm_disk
+    echo
+
+    # Create a new ubuntu instance using libmist
+   new_virt "$vm_name" "$vm_cpu" "$vm_ram" "$vm_disk" "debian"
+}
+
+function virt_centos() {
+    requirement kvm;
+    requirement libvirt-bin;
+    requirement virt-manager;
+    requirement virt-viewer;
+    requirement virt-top;
+    requirement virt-what;
+
+    fetch_distro ubuntu
+
+    # Ask user for specifications
+    read -pr "Input the virtual server name" vm_name
+    echo
+    read -pr "Input the number of CPU's for this virtual server" vm_cpu
+    echo
+    read -pr "Input the ram size (MB) for this virtual server" vm_ram
+    echo
+    read -pr "Input the disk size (GB) fo the vm" vm_disk
+    echo
+
+    # Create a new ubuntu instance using libmist
+   new_virt "$vm_name" "$vm_cpu" "$vm_ram" "$vm_disk" "centos"
+}
+
+function virt_fedora() {
+    requirement kvm;
+    requirement libvirt-bin;
+    requirement virt-manager;
+    requirement virt-viewer;
+    requirement virt-top;
+    requirement virt-what;
+
+    fetch_distro ubuntu
+
+    # Ask user for specifications
+    read -pr "Input the virtual server name" vm_name
+    echo
+    read -pr "Input the number of CPU's for this virtual server" vm_cpu
+    echo
+    read -pr "Input the ram size (MB) for this virtual server" vm_ram
+    echo
+    read -pr "Input the disk size (GB) fo the vm" vm_disk
+    echo
+
+    # Create a new ubuntu instance using libmist
+   new_virt "$vm_name" "$vm_cpu" "$vm_ram" "$vm_disk" "fedora"
+}
 
 case $1 in
     help) help ;;
 
     ubuntu)
         check_root;
-        systemctl start apache2 && systemctl enable apache2 ;;
+        virt_ubuntu;;
 
     debian)
-        check_root
-        systemctl stop apache2 ;;
+        check_root;
+        virt_debian;;
 
     centos)
-        check_root
-        apache2ctl graceful ;;
+        check_root;
+        virt_centos;;
 
     fedora)
-        check_root
-        journalctl -u apache2 ;;
-
-    custom)
-        check_root
-        write_mod ;;
+        check_root;
+        virt_fedora;;
 
     *) help;;
 esac
