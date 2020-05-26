@@ -1,5 +1,62 @@
 #!/bin/bash
 
+function fetch_distro() {
 
+    if [ "$#" -ne 1 ]; then
+        echo "Illegal number of parameters"
+        exit 2
+    fi
+
+    case $1 in
+        ubuntu)
+            echo "Downloading latest Ubuntu LTS..."
+            wget -O /tmp/ubuntu-latest.iso https://releases.ubuntu.com/20.04/ubuntu-20.04-desktop-amd64.iso
+            ;;
+
+        debian)
+            echo "Downloading latest Debian..."
+            wget -O /tmp/debian-latest.iso https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-10.4.0-amd64-netinst.iso
+            ;;
+        centos)
+            echo "Downloading latest CentOS..."
+            wget -O /tmp/centos-latest.iso http://mirror.oss.ou.edu/centos/8.1.1911/isos/x86_64/CentOS-8.1.1911-x86_64-dvd1.iso
+            ;;
+        fedora)
+            echo "Downloading latest Fedora..."
+            wget -O /tmp/fedora-latest.iso https://download.fedoraproject.org/pub/fedora/linux/releases/32/Server/x86_64/iso/Fedora-Server-dvd-x86_64-32-1.6.iso
+            ;;
+       
+        *)
+            echo "Illegal option"
+            exit 2
+            ;;
+    esac
+}
+
+function new_virt() {
+
+    # Check for invalid parameters
+    if [ "$#" -ne 5 ]; then
+        echo "Illegal number of parameters"
+        exit 2
+    fi
+    # Assing an array for all arguments
+    args=("$@")
+
+    # Parse arguments by position
+    vmname="${args[0]}"
+    vmcpu="${args[1]}"
+    vmram="${args[2]}"
+    vmdisk="${args[3]}"
+    dist="${args[4]}"
+
+    # Create virt-install instance
+    if virt-install -name="${vmname}" -vcpus="${vmcpu}" -memory="${vmram}" -cdrom="/tmp/${dist}-latest.iso" --disk-size="${vmdisk}"; then
+        echo "Virtual instance created correctly at $HOME/.local/share/libvirt/images"
+    else
+        echo "Virtual instance creation failed"
+        exit 1
+    fi
+}
 
 # 2020 - UpVent
