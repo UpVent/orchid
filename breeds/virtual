@@ -52,7 +52,7 @@ function virt_debian() {
     requirement virt-top;
     requirement virt-what;
 
-    fetch_distro ubuntu
+    fetch_distro debian
 
     # Ask user for specifications
     read -pr "Input the virtual server name" vm_name
@@ -76,7 +76,7 @@ function virt_centos() {
     requirement virt-top;
     requirement virt-what;
 
-    fetch_distro ubuntu
+    fetch_distro centos
 
     # Ask user for specifications
     read -pr "Input the virtual server name" vm_name
@@ -100,7 +100,7 @@ function virt_fedora() {
     requirement virt-top;
     requirement virt-what;
 
-    fetch_distro ubuntu
+    fetch_distro fedora
 
     # Ask user for specifications
     read -pr "Input the virtual server name" vm_name
