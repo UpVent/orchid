@@ -1,0 +1,22 @@
+#!/bin/bash
+
+# shellcheck source=../lib/requiem
+
+function help {
+    cat <<__EOF__
+
+    usage: orcd mail [ help | ubuntu | debian | centos | fedora ]
+
+    ubuntu: Virtualize the latest ubuntu server (LTS)
+    debian: Virtualize the latest Debian server
+    centos: Virtualize the latest CentOS / CentOS Stream
+    fedora: Virtualize the latest Fedora
+    help: Print this message
+
+__EOF__
+}
+
+source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
+
+
+# 2020 - UpVent
