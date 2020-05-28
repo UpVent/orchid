@@ -58,9 +58,11 @@ project's manpage.**
 
 ## Current Breeds (and status)
 
-* Apache2 [Works, Tested on Debian / Ubuntu]
-* django  [WIP]
-* kernel  [WIP]
+* Apache2 [Works]
+* Virtual [Works]
+* NGINX   [Partially works]
+* squid   [WIP]
+* Django  [WIP]
 * storage [Unstable, Tested on Debian]
 
 ## DISCLAIMER
