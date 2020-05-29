@@ -2,5 +2,17 @@
 
 # shellcheck source=../lib/requiem
 
+function help {
+    cat <<__EOF__
+
+    usage: orcd django [ setup | log | restart | backup]
+
+    setup:   Creates and configures a Django
+    log:     Show debug info for current django deployments
+    restart: Restarts a django server gracefully
+    backup:  Backs up a given Django instance
+    help:    Show this screen
+__EOF__
+}
 
 # Orchid 2020 - UpVent
