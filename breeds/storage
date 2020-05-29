@@ -10,13 +10,13 @@ function help {
 
     Commands:
 
-    ls: lists all available disks
-    status: shows information about the consulted device (eg: /dev/sdx)
-    fs: lists all available filesystems
-    unplug: unmounts ALL volumes [potentially dangerous]
-    check: Check & Verify all disks available
-    repair: Repairs a given volume (eg: /dev/sdx)
-    help: show this message
+    ls:      Lists all available disks
+    status:  Shows information about the consulted device (eg: /dev/sdx)
+    fs:      Lists all available filesystems
+    unplug:  Unmounts ALL volumes [potentially dangerous]
+    check:   Check & Verify all disks available
+    repair:  Repairs a given volume (eg: /dev/sdx)
+    help:    Show this message
 
 __EOF__
 }

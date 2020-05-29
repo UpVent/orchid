@@ -7,12 +7,12 @@ function help {
 
     usage: orcd nginx [ on | off | restart | debug | new | del ]
 
-    on: Turns on the nginx webserver
-    off: Turns off the nginx webserver
+    on:      Turns on the nginx webserver
+    off:     Turns off the nginx webserver
     restart: Restarts the server gracefully
-    debug: Use systemd to debug the nginx service
-    new: Writes a new server block under /etc/nginx/sites-available/
-    del: Deletes a server block under /etc/nginx/sites-available/
+    debug:   Use systemd to debug the nginx service
+    new:     Writes a new server block under /etc/nginx/sites-available/
+    del:     Deletes a server block under /etc/nginx/sites-available/
 
 __EOF__
 }

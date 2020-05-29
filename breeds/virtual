@@ -12,7 +12,7 @@ function help {
     debian: Virtualize the latest Debian server
     centos: Virtualize the latest CentOS / CentOS Stream
     fedora: Virtualize the latest Fedora
-    help: Print this message
+    help:   Print this message
 
 __EOF__
 }

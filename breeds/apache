@@ -7,13 +7,13 @@ function help {
 
     usage: orcd apache [ on | off | restart | debug | new | del | backup]
 
-    on: Turns on the apache webserver
-    off: Turns off the apache webserver
+    on:      Turns on the apache webserver
+    off:     Turns off the apache webserver
     restart: Restarts the server gracefully
-    debug: Use systemd to debug the apache service
-    new: Writes a new virtual host under /etc/apache2/sites-available/
-    del: Deletes a virtual host under /etc/apache2/sites-available/
-    backup: Creates an apache backup git directory on a remote machine
+    debug:   Use systemd to debug the apache service
+    new:     Writes a new virtual host under /etc/apache2/sites-available/
+    del:     Deletes a virtual host under /etc/apache2/sites-available/
+    backup:  Creates an apache backup git directory on a remote machine
 
 __EOF__
 }
