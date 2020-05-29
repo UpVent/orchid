@@ -18,7 +18,20 @@ __EOF__
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
 
-function setup() {
+function setup_django {
+
+    # Count arguments to prevent wrong usage
+    if [ "$#" -ne 5 ]; then
+        echo "Illegal number of parameters"
+        exit 2
+    fi
+
+    # Check for dependencies
+    requirement python3
+    requirement pip3
+    requirement apache2
+
+
 
 }
 
@@ -29,10 +42,13 @@ case $1 in
         echo "Orchid will now attempt to configure a Django instance"
         echo "but first it needs you to input the following:"
 
+        read -pr "Please input the project name" pname
         read -pr "Do you wish to setup a virtual environment?" virtenv
         read -pr "Are you using apache or nginx?" server
         read -pr "Choose your database engine: (Postgres | SQLite)" dbengine
         read -pr "Please input your default port for this Django app" djport
+       
+        setup_django "$pname" "$virtenv" "$server" "$dbengine" "$djport"
     ;;
 
     log);;
