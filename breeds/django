@@ -17,10 +17,23 @@ __EOF__
 
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
+
+function setup() {
+
+}
+
 case $1 in
     help) help ;;
 
-    setup);;
+    setup)
+        echo "Orchid will now attempt to configure a Django instance"
+        echo "but first it needs you to input the following:"
+
+        read -pr "Do you wish to setup a virtual environment?" virtenv
+        read -pr "Are you using apache or nginx?" server
+        read -pr "Choose your database engine: (Postgres | SQLite)" dbengine
+        read -pr "Please input your default port for this Django app" djport
+    ;;
 
     log);;
 
