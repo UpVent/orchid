@@ -20,15 +20,6 @@ function check_os {
     esac
 }
 
-function options() {
-    read -pr "Please choose an option between: ${1}, ${2}" opt
-    case $opt in
-        [$1]* ) make install; break;;
-        [$2]* ) exit;;
-        * ) echo "Please answer yes or no.";;
-    esac
-}
-
 function requirement {
     command -v "$1" > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
