@@ -15,4 +15,20 @@ function help {
 __EOF__
 }
 
+source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
+
+case $1 in
+    help) help ;;
+
+    setup);;
+
+    log);;
+
+    restart);;
+
+    backup);;
+
+    *) help;;
+esac
+
 # Orchid 2020 - UpVent
