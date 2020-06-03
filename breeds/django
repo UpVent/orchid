@@ -21,7 +21,7 @@ source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 function setup_django {
 
     # Count arguments to prevent wrong usage
-    if [ "$#" -ne 5 ]; then
+    if [ "$#" -ne 3 ]; then
         echo "Illegal number of parameters"
         exit 2
     fi
@@ -31,24 +31,73 @@ function setup_django {
     requirement pip3
     requirement apache2
 
+    # Install venv locally
+    pip3 install venv --user
 
+    # Set the local pip binary variable in users bashrc
+    export PATH="$HOME/.local/bin:$PATH"
 
+    # Create the project directory
+    mkdir ~/"$1"
+    cd ~/"$1" || exit 1
+
+    echo "Creating virtualenv for project..."
+    virtualenv "${1}env"
+
+    echo "Activating virtual env..."
+    source "${1}env/bin/activate"
+
+    # Install django & deps in venv
+    pip install django
+
+    # Start the django project
+    django-admin.py startproject "$1" .
+
+    # Change the current ALLOWED_HOSTS variable
+    sed -i 's/["server_domain_or_IP"]/["${3}"]/g' "$1"/settings.py
+
+    # Append statics to end of file
+    echo "STATIC_ROOT = os.path.join(BASE_DIR, 'static/')" >> "$1"/settings.py
+
+    # Final touches
+    echo "Attempting to make the first DB migrations"
+    cd ~/"$1" || exit 1
+    ./manage.py makemigrations
+    ./manage.py migrate
+    clear
+
+    echo "Creating superuser for this django instance"
+    ./manage.py createsuperuser
+    clear
+    echo "Collecting static content"
+    ./manage.py collectstatic
+
+    # Exiting venv
+    echo "Your Django Instance was installed on ~/${1}..."
+    echo "Exiting Virtual Environment"
+    clear
+
+    if [[ ${2} = "apache" ]] || [[ ${2} = "Apache" ]]; then
+        echo "Please wait...setting up a new Apache Virtual Host"
+
+    fi
 }
 
 case $1 in
     help) help ;;
 
     setup)
+        echo "MAKE SURE TO RUN THIS IN THE USER's DIR FOR A NEW PROJECT"
         echo "Orchid will now attempt to configure a Django instance"
         echo "but first it needs you to input the following:"
 
         read -pr "Please input the project name" pname
-        read -pr "Do you wish to setup a virtual environment?" virtenv
         read -pr "Are you using apache or nginx?" server
-        read -pr "Choose your database engine: (Postgres | SQLite)" dbengine
-        read -pr "Please input your default port for this Django app" djport
+        read -pr "Please input the server domain or IP addr" pserv
+        # read -pr "Choose your database engine: (Postgres | SQLite)" dbengine
+        # read -pr "Please input your default port for this Django app" djport
        
-        setup_django "$pname" "$virtenv" "$server" "$dbengine" "$djport"
+        setup_django "$pname" "$server" "$pserv"
     ;;
 
     log);;
