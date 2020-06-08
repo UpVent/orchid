@@ -100,7 +100,7 @@ function config_apache {
     # $3 = server IP / domain
 
     echo "Superuser permissions needed, elevating privileges..."
-    sudo -s # Just DO IT
+    sudo -s # Just suDO it
     echo "Now writing new apache Virtual Host..."
    
     cat > "/etc/apache2/sites-available/${3}.conf" <<EOL
@@ -119,8 +119,9 @@ function config_apache {
                             </Files>
                  </Directory>
 
-                 # TODO
-
+                 WSGIDaemonProcess ${2} python-home=/home/${1}/{$2}/${2}env python-path=/home/${1}/{$2}
+                 WSGIProcessGroup ${2}
+                 WSGIScriptAlias / /home/${1}/${2}/${2}/wsgi.py
     </VirtualHost>
 EOL
 }
