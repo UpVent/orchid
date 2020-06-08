@@ -20,6 +20,9 @@ source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
 function setup_django {
 
+    # Get current running user
+    user=$(whoami)
+
     # Count arguments to prevent wrong usage
     if [ "$#" -ne 3 ]; then
         echo "Illegal number of parameters"
@@ -79,8 +82,51 @@ function setup_django {
 
     if [[ ${2} = "apache" ]] || [[ ${2} = "Apache" ]]; then
         echo "Please wait...setting up a new Apache Virtual Host"
-
+        config_apache "$user" "$1" "$3";
+    elif [[ ${2} = "nginx" ]] || [[ ${2} = "Nginx" ]]; then
+        echo "Please wait...setting up a new NGINX Virtual Block"
+        config_nginx "$user" "$1" "$3";
+    else
+        echo "Wrong server name, falling back to nginx"
+        config_nginx "$user" "$1" "$3";
     fi
+}
+
+
+function config_apache {
+
+    # $1 = user
+    # $2 = project name
+    # $3 = server IP / domain
+
+    echo "Superuser permissions needed, elevating privileges..."
+    sudo -s # Just DO IT
+    echo "Now writing new apache Virtual Host..."
+   
+    cat > "/etc/apache2/sites-available/${3}.conf" <<EOL
+
+    <VirtualHost *:80>
+                 ServerName ${3}
+                 Alias /static /home/${1}/${2}/static
+
+                 <Directory /home/${1}/${2}/static>
+                            Require all granted
+                 </Directory>
+
+                 <Directory /home/${1}/${2}/${2}>
+                            <Files wsgi.py>
+                                   Require all granted
+                            </Files>
+                 </Directory>
+
+                 # TODO
+
+    </VirtualHost>
+EOL
+}
+
+function config_nginx {
+   
 }
 
 case $1 in
