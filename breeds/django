@@ -110,7 +110,7 @@ function setup_django {
 
 
 function config_apache {
-
+    requirement apache2;
     # $1 = user
     # $2 = project name
     # $3 = server IP / domain
@@ -145,7 +145,21 @@ EOL
 }
 
 function config_nginx {
-   
+    requirement nginx
+    # $1 = user
+    # $2 = project name
+    # $3 = Server IP / Domain
+
+    echo "Superuser permissions needed, elevating privileges"
+    sudo -s # Just suDO it
+    cat > "/etc/nginx/sites-available/${3}" <<EOL
+
+    server {
+           listen 80;
+           server_name ${3};
+
+    }
+EOL
 }
 
 case $1 in
