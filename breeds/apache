@@ -13,7 +13,7 @@ function help {
     debug:   Use systemd to debug the apache service
     new:     Writes a new virtual host under /etc/apache2/sites-available/
     del:     Deletes a virtual host under /etc/apache2/sites-available/
-    backup:  Creates an apache backup git directory on a remote machine
+    backup:  Creates an apache backup git directory ready to use on a remote machine
 
 __EOF__
 }
@@ -134,6 +134,8 @@ function bckup_first() {
 }
 
 function bckup() {
+    now=$(date)
+
     echo "Apache is being backed up"
     echo -e "\e[1m\e[31mDO NOT TAMPER WITH APACHE UNTIL 'SAFE' IS DISPLAYED\e[0m"
 
@@ -183,7 +185,7 @@ case $1 in
 
     backup)
         check_root
-        echo "Checking if backup was created previously"
+        echo "Checking if a backup was created previously"
 
         DIR="/git/.git"
 

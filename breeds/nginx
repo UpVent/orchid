@@ -13,6 +13,7 @@ function help {
     debug:   Use systemd to debug the nginx service
     new:     Writes a new server block under /etc/nginx/sites-available/
     del:     Deletes a server block under /etc/nginx/sites-available/
+    backup:  Creates an NGINX backup git directory ready to use on a remote machine
 
 __EOF__
 }
@@ -66,6 +67,84 @@ EOL
     echo "Server Block Written Successfully"
 }
 
+function bckup_first() {
+    now=$(date)
+
+    requirement "git";
+
+    # Create a git directory where the files will be served
+    mkdir /git
+    # Assign permissions to the current user
+    chown "$USER":"$USER" /git
+    cd /git || exit 1 # Exit in case backup directory fails
+
+    # Init an empty repo
+    git init --bare nginx
+
+    # Backup the current apache contents just in case
+    # a mistake happens while converting the directory
+    # into version controlled configuration files.
+    cp -rp /etc/nginx /etc/nginx.bak
+
+    # Move all the contents of nginx into the repository
+    mv /etc/nginx/* /git/nginx
+
+    # Warn the user about not doing stuff
+    echo -e "\e[1m\e[31mDO NOT TAMPER WITH NGINX UNTIL 'SAFE' IS DISPLAYED\e[0m"
+
+    # Remove the empty nginx directory
+    rm /etc/nginx
+
+    # Make sure nginx files are owned by root
+    find /git/nginx -name '.?*' -prune -o -exec chown root:root {} +
+
+    # Create a symlink to the repository so the nginx daemon can find it
+    ln -s /git/nginx /etc/nginx
+
+    # [DEBUG] Check if symlink was created correctly
+    # ls -l /etc | grep nginx
+
+    # Check if nginx can be reloaded properly
+    # TODO: Add this to lib/requiem
+    echo "There is no 'graceful' command for NGINX, expect downtime"
+
+    systemctl nginx restart
+
+    # Tell the user we are making the first commit 'cause yes
+    echo -e "Now commiting changes..."
+
+    # Just add everything, damn it.
+    git add .
+    # Create a commit message
+    git commit -a -m "First NGINX Backup - Date: ${now}"
+    # Push changes to the repository
+    git push origin master
+
+    echo -e "Backup process completed, NGINX is \e[1m\e[32mSAFE\e[0m"
+}
+
+function bckup() {
+    now=$(date)
+   
+    echo "NGINX is being backed up"
+    echo -e "\e[1m\e[31mDO NOT TAMPER WITH NGINX UNTIL 'SAFE' IS DISPLAYED\e[0m"
+
+    # Make sure apache's files are owned by root
+    find /git/nginx -name '.?*' -prune -o -exec chown root:root {} +
+
+    # Tell the user we are commiting all changes they might have added
+    echo -e "Now commiting /git/* changes "
+
+    # Commit all the current configuration changes into /git
+    git add .
+    # Create a commit message
+    git commit -a -m "NGINX Backup - Date: ${now}"
+    # Push changes to the repository
+    git push origin master
+
+    echo -e "Backup process completed, NGINX is \e[1m\e[32mSAFE\e[0m"
+}
+
 case $1 in
     help) help ;;
 
@@ -94,6 +173,25 @@ case $1 in
         check_root
         echo "This may result in data loss!";
         del_mod;;
+
+    backup)
+        check_root
+        echo "Checking if a backup was created previously"
+
+        DIR="/git/.git"
+
+        if [ ! -f "$DIR" ]; then
+            echo "Make sure to git clone the resulting repo in a remote machine where the backup can be stored"
+            bckup_first;
+            echo "First apache backup succeeded! Please check /git"
+        elif [ -d "$DIR" ]; then
+            bckup
+            echo "NGINX backup succeeded!"
+        else
+            echo "Unhandled error"
+            exit 1
+        fi
+        ;;
 
     *) help;;
 esac
