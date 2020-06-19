@@ -5,6 +5,8 @@
 function help {
     cat <<__EOF__
 
+    [NOTICE: THIS MODULE IS A WORK IN PROGRESS AND IT'S NOT READY]
+
     usage: orcd django [ setup | log | restart | backup]
 
     setup:   Creates and configures a Django
