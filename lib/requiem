@@ -20,6 +20,18 @@ function check_os {
     esac
 }
 
+function apt_requirement {
+    # Use dpkg-query present in all debian based to check for dependencies.
+    if [[ $(/usr/bin/dpkg-query --show --showformat='${db:Status-Status}\n' "$1") = "installed" ]]; then
+	    echo -e "[\e[92m✔\e[39m]::[$1]: is installed!";
+    else
+        echo -e "[\e[1m\e[91mx\e[39m]::[ERROR]: This Breed requires $1!";
+        echo -e "You can install [\e[1m\e[91m$1\e[39m] using the following order as superuser:";
+        echo "apt install $1"
+        exit 1
+    fi
+}
+
 function requirement {
     command -v "$1" > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
