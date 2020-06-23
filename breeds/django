@@ -19,7 +19,6 @@ __EOF__
 
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
-
 function setup_django {
 
     # Get current running user
@@ -35,6 +34,7 @@ function setup_django {
     requirement python3
     requirement pip3
     requirement apache2
+    apt_requirement libapache2-mod-wsgi-py3
 
     # Install venv locally
     pip3 install venv --user
@@ -107,9 +107,7 @@ function setup_django {
         config_nginx "$user" "$1" "$3";
         echo "NGINX configured correctly"
     fi
-   
 }
-
 
 function config_apache {
     requirement apache2;
@@ -183,14 +181,14 @@ case $1 in
         echo "Orchid will now attempt to configure a Django instance"
         echo "but first it needs you to input the following:"
 
-        read -pr "Please input the project name" pname
-        read -pr "Are you using apache or nginx?" server
-        read -pr "Please input the server domain or IP addr" pserv
+        read -pr "Please input the project name: " pname
+        read -pr "Are you using apache or nginx?: " server
+        read -pr "Please input the server domain or IP addr: " pserv
         # read -pr "Choose your database engine: (Postgres | SQLite)" dbengine
         # read -pr "Please input your default port for this Django app" djport
        
         setup_django "$pname" "$server" "$pserv"
-    ;;
+        ;;
 
     log);;
 
