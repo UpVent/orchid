@@ -187,10 +187,6 @@ case $1 in
         setup_django "$pname" "$server" "$pserv"
         ;;
 
-    backup)
-        d_backup
-        ;;
-
     *) help;;
 esac
 

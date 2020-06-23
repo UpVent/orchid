@@ -32,6 +32,23 @@ Orchid may (or may not) help you in the following ways:
 
 ## Installation
 
+To install and use Orchid in your system you have to run the following commands
+
+1. Clone the repo, doing this in your home folder is recommended:
+`git clone https://github.com/UpVent/orchid.git && cd orchid`
+
+2. To run orchid just use bash or the `./` order to start executing commands:
+`./orcd` or `bash orcd`
+
+3. [OPTIONAL] if you want to have Orchid available at all times save the repo in a
+hidden folder and add it to your `PATH` variable:
+
+`git clone https://github.com/UpVent/orchid.git && mv orchid .orchid`
+
+Then:
+
+`echo export PATH=$PATH:~/.orchid >> .bashrc`
+
 For now installation should be done manually in your home folder. We are
 currently working in the following installation options:
 

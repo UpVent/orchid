@@ -21,7 +21,6 @@ function setup_ps {
     requirement apache2
     apt_requirement libapache2-mod-php
 
-
 }
 
 case $1 in
