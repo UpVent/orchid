@@ -10,9 +10,6 @@ function help {
     usage: orcd django [ setup | log | restart | backup]
 
     setup:   Creates and configures a Django
-    log:     Show debug info for current django deployments
-    restart: Restarts a django server gracefully
-    backup:  Backs up a given Django instance
     help:    Show this screen
 __EOF__
 }
@@ -88,11 +85,11 @@ function setup_django {
         echo "Apache configured correctly"
         # Post apache config
         echo "Applying permissions to project"
-        chmod 664 "~/${1}/db.sqlite3"
+        chmod 664 "/home/${1}/db.sqlite3"
 
         echo "db.sqlite3 owner must be in the www-data group"
         echo "Elevating privileges"
-        sudo chown :www-data "~/${1}"
+        sudo chown :www-data "/home/${1}"
         echo "Testing apache configuration files"
         sudo apache2ctl configtest
         echo "Restarting the Apache 2 daemon"
@@ -119,7 +116,7 @@ function config_apache {
     sudo -s # Just suDO it
     echo "Now writing new apache Virtual Host..."
    
-    cat > "/etc/apache2/sites-available/${3}.conf" <<EOL
+    cat > "/etc/apache2/sites-available/${3}_orcd.conf" <<EOL
 
     <VirtualHost *:80>
                  ServerName ${3}
@@ -152,7 +149,7 @@ function config_nginx {
 
     echo "Superuser permissions needed, elevating privileges"
     sudo -s # Just suDO it
-    cat > "/etc/nginx/sites-available/${3}" <<EOL
+    cat > "/etc/nginx/sites-available/${3}_orcd" <<EOL
 
     server {
            listen 80;
@@ -190,11 +187,9 @@ case $1 in
         setup_django "$pname" "$server" "$pserv"
         ;;
 
-    log);;
-
-    restart);;
-
-    backup);;
+    backup)
+        d_backup
+        ;;
 
     *) help;;
 esac
