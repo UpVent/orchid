@@ -9,7 +9,7 @@ popd > /dev/null || exit
 function use {
     cat << __EOF__
 
-   ❀  O R C H I D  ❀
+   $(echo -e "\e[95m❀  O R C H I D  ❀\e[0m")
 
    Sysadmin script for common server tasks
 
