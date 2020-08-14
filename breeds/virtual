@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # shellcheck source=../lib/requiem
 # shellcheck source=../lib/mist

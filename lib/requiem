@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function check_os {
     if type lsb_release >/dev/null 2>&1 ; then
