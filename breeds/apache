@@ -2,7 +2,7 @@
 
 # shellcheck source=../lib/requiem
 
-function help {
+help() {
     cat <<__EOF__
 
     usage: orcd apache [ on | off | restart | debug | new | del | backup]
@@ -20,7 +20,7 @@ __EOF__
 
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
-function del_mod {
+del_mod() {
     requirement apache2
     check_root
     HOSTS_DIR="/etc/apache2/sites-available"
@@ -34,7 +34,7 @@ function del_mod {
     echo "Virtual Host removed successfully"
 }
 
-function write_mod {
+write_mod() {
     requirement apache2
     check_root
     HOSTS_DIR="/etc/apache2/sites-available/"
@@ -72,7 +72,7 @@ EOL
     echo "Virtual Host Written Successfully"
 }
 
-function bckup_first() {
+bckup_first() {
     now=$(date)
 
     requirement "git";
@@ -133,7 +133,7 @@ function bckup_first() {
     echo -e "Backup process completed, apache is \e[1m\e[32mSAFE\e[0m"
 }
 
-function bckup() {
+bckup() {
     now=$(date)
 
     echo "Apache is being backed up"

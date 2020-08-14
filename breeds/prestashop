@@ -2,7 +2,7 @@
 
 # shellcheck source=../lib/requiem
 
-function help {
+help() {
     cat <<__EOF__
 
     usage: orcd prestashop [ setup | list | backup]
@@ -17,7 +17,7 @@ __EOF__
 
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
-function setup_ps {
+setup_ps() {
     requirement apache2
     apt_requirement libapache2-mod-php
 

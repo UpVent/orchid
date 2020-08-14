@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function ask {
+ask() {
     local prompt default reply
 
     if [ "${2:-}" = "Y" ]; then

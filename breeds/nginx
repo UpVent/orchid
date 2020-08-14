@@ -2,7 +2,7 @@
 
 # shellcheck source=../lib/requiem
 
-function help {
+help() {
     cat <<__EOF__
 
     usage: orcd nginx [ on | off | restart | debug | new | del ]
@@ -20,7 +20,7 @@ __EOF__
 
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
-function del_mod {
+del_mod() {
     requirement nginx
     check_root
     HOSTS_DIR="/etc/nginx/sites-available"
@@ -34,7 +34,7 @@ function del_mod {
     echo "Server Block removed successfully"
 }
 
-function write_mod {
+write_mod() {
     requirement nginx
     check_root
     HOSTS_DIR="/etc/nginx/sites-available/"
@@ -67,7 +67,7 @@ EOL
     echo "Server Block Written Successfully"
 }
 
-function bckup_first() {
+bckup_first() {
     now=$(date)
 
     requirement "git";
@@ -123,7 +123,7 @@ function bckup_first() {
     echo -e "Backup process completed, NGINX is \e[1m\e[32mSAFE\e[0m"
 }
 
-function bckup() {
+bckup() {
     now=$(date)
    
     echo "NGINX is being backed up"

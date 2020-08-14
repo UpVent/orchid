@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function fetch_distro() {
+fetch_distro() {
 
     if [ "$#" -ne 1 ]; then
         echo "Illegal number of parameters"
@@ -33,7 +33,7 @@ function fetch_distro() {
     esac
 }
 
-function new_virt() {
+new_virt() {
 
     # Check for invalid parameters
     if [ "$#" -ne 5 ]; then

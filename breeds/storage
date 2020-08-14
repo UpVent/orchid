@@ -2,7 +2,7 @@
 
 # shellcheck source=../lib/requiem
 
-function help {
+help() {
     cat << __EOF__
 
     usage: storage ls | status <device> | fs |
@@ -25,7 +25,7 @@ source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 
 requirement smartctl;
 
-function list {
+list() {
     if [ -z "${1}" ]; then
         lsblk
     else
@@ -33,16 +33,16 @@ function list {
     fi
 }
 
-function status {
+status() {
     [ -z "${1}" ] && help && exit 1
     fdisk "${1}"
 }
 
-function filesys {
+filesys() {
     mount | column -t
 }
 
-function unplug {
+unplug() {
     read -p -r "This may cause data loss are you sure? Y/n" -n 1
     echo
     if [[ $REPLY =~ ^[Yy]$ ]]
@@ -55,7 +55,7 @@ function unplug {
     fi
 }
 
-function check {
+check() {
     check_requirements
 
     mount | grep "/dev/sd" | awk '{print $1}' | while read -r partition
@@ -70,7 +70,7 @@ function check {
     done
 }
 
-function repair {
+repair() {
     check_root
     umount "$1"
     fsck -y  "$1"

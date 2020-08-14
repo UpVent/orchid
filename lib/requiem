@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-function check_os {
+check_os() {
     if type lsb_release >/dev/null 2>&1 ; then
         distro=$(lsb_release -i -s)
     elif [ -e /etc/os-release ] ; then
@@ -20,7 +20,7 @@ function check_os {
     esac
 }
 
-function apt_requirement {
+apt_requirement() {
     # Use dpkg-query present in all debian based to check for dependencies.
     if [[ $(/usr/bin/dpkg-query --show --showformat='${db:Status-Status}\n' "$1") = "installed" ]]; then
 	    echo -e "[\e[92m✔\e[39m]::[$1]: is installed!";
@@ -32,7 +32,7 @@ function apt_requirement {
     fi
 }
 
-function requirement {
+requirement() {
     command -v "$1" > /dev/null 2>&1
 	if [ "$?" -eq "0" ]; then
 	    echo -e "[\e[92m✔\e[39m]::[$1]: is installed!";
@@ -42,14 +42,14 @@ function requirement {
     fi
 }
 
-function check_root {
+check_root() {
     if [ "$(id -u)" != "0" ]; then
         echo "This script must be run as root" 1>&2
         exit 1
     fi
 }
 
-function validate_ip() {
+validate_ip() {
     local ip=$1
     local stat=1
 

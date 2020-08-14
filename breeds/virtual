@@ -3,7 +3,7 @@
 # shellcheck source=../lib/requiem
 # shellcheck source=../lib/mist
 
-function help {
+help() {
     cat <<__EOF__
 
     usage: orcd virtual [ help | ubuntu | debian | centos | fedora ]
@@ -20,7 +20,7 @@ __EOF__
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/requiem"
 source "$( dirname "${BASH_SOURCE[0]}" )/../lib/mist"
 
-function virt_ubuntu() {
+virt_ubuntu() {
     requirement kvm;
     requirement libvirt-bin;
     requirement virt-manager;
@@ -44,7 +44,7 @@ function virt_ubuntu() {
    new_virt "$vm_name" "$vm_cpu" "$vm_ram" "$vm_disk" "ubuntu"
 }
 
-function virt_debian() {
+virt_debian() {
     requirement kvm;
     requirement libvirt-bin;
     requirement virt-manager;
@@ -68,7 +68,7 @@ function virt_debian() {
    new_virt "$vm_name" "$vm_cpu" "$vm_ram" "$vm_disk" "debian"
 }
 
-function virt_centos() {
+virt_centos() {
     requirement kvm;
     requirement libvirt-bin;
     requirement virt-manager;
@@ -92,7 +92,7 @@ function virt_centos() {
    new_virt "$vm_name" "$vm_cpu" "$vm_ram" "$vm_disk" "centos"
 }
 
-function virt_fedora() {
+virt_fedora() {
     requirement kvm;
     requirement libvirt-bin;
     requirement virt-manager;
