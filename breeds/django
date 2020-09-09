@@ -183,7 +183,7 @@ case $1 in
         read -pr "Please input the server domain or IP addr: " pserv
         # read -pr "Choose your database engine: (Postgres | SQLite)" dbengine
         # read -pr "Please input your default port for this Django app" djport
-       
+
         setup_django "$pname" "$server" "$pserv"
         ;;
 
