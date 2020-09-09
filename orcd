@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 [ -L "$0" ] && pushd "$(readlink "$0" | xargs dirname)" > /dev/null \
     || pushd "$(dirname "$0")" > /dev/null || exit
@@ -27,7 +27,7 @@ __EOF__
     done
 
     [ "${OPTIONS}" == "help" ] && exit 0 || exit 1
-   
+
 }
 
 OPTIONS=$1; shift;
@@ -35,4 +35,4 @@ OPTIONS=$1; shift;
 [ ! -f "${OPATH}/breeds/${OPTIONS}" ] && use
 "${OPATH}"/breeds/"${OPTIONS}" "$@"
 
-# Orchid 2020 - UpVent
+# Orchid 2020 - UpVent Technologies
